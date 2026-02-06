@@ -1,0 +1,45 @@
+import { Link } from 'react-router-dom';
+import logo from '../../assets/img/LoGoLangBridge.png'
+import { FaHome } from "react-icons/fa";
+import { MdQuiz } from "react-icons/md";
+import { MdPlayLesson } from "react-icons/md";
+import { FaTasks } from "react-icons/fa";
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { IoMdSettings } from "react-icons/io";
+import { CiLogout } from "react-icons/ci";
+import './sidebar.css'
+
+
+
+function SideBar() {
+    return (
+        <>
+            <div className="sidebar bg-white h-screen">
+                <div className="d-flex flex-column items-center">
+                    <Link to = {"/"}><img src={logo} class="sideBar__logo"></img></Link>
+                    <div className='sideBarNav d-flex flex-column justify-between'>
+                        <div className='px-4'>
+                            <p className='text-gray-200 font-bold m-0  py-2'>OVERVIEW</p>
+                            <ul className='sideBarTool list-style-type-none m-0 px-3 d-flex flex-column gap-y-2'>
+                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaHome /> Home</li></Link>
+                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><MdQuiz /> Quiz</li></Link>
+                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><MdPlayLesson /> Lesson</li></Link>
+                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaTasks /> Task</li></Link>
+                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaChalkboardTeacher /> Course</li></Link>
+                            </ul>
+                        </div>
+
+                        <div className='px-4 py-6'>
+                            <p className='text-gray-200 font-bold m-0 py-2'>SETTINGS</p>
+                            <ul className='sideBarTool list-style-type-none m-0 px-3 d-flex flex-column gap-y-2'>
+                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><IoMdSettings /> Settings</li></Link>
+                                <li className='text-red font-bold'><CiLogout /> Logout</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+export default SideBar;

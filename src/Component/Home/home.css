@@ -1,0 +1,16 @@
+.homeSearch{
+    min-width: calc(100% - 50px);
+}
+.homeSlide{
+    height: 200px;
+}
+.mainSlide{
+    width: 1280px;
+}
+.homeTool div{
+    border: 1px solid black;
+    padding: 5px 5px;
+    border-radius: 50%;
+    text-align:center;
+    font-size: 14px;
+}

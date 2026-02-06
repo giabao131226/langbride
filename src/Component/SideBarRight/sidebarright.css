@@ -1,0 +1,35 @@
+
+.sideBarRight{
+    min-width: 18vw;
+    width: 18vw;
+    overflow: hidden;
+    box-sizing: border-box;
+    transition: 600ms ease all;
+}
+.sideBarRight.close{
+    transform: translateX(18vw);
+    width: 0px;
+    min-width: 0px;
+}
+.HomevienImg{
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    overflow: hidden;
+    padding: 4px 4px;
+    border: 5px solid blue;
+}
+.HomevienImg img{
+    width: 80px;
+    height:80px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+.todo{
+    height: 30px;
+    overflow: hidden;
+}
+.sbrSlide{
+    height: 50px;
+    background-color: rgb(106, 106, 241);
+}
