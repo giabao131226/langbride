@@ -28,5 +28,5 @@
     color: rgb(78, 78, 238);
 }
 .sideBarTool li:hover::after{
-    transform: scaleX(100%);
+    transform: scaleX(1);
 }

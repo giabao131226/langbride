@@ -4,16 +4,34 @@ import "./sidebarright.css"
 import { FaBell } from "react-icons/fa";
 import { FaImage } from "react-icons/fa6";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { Button, Carousel, Dropdown, Space } from 'antd'
-import { useCallback, useEffect } from "react";
+import { Button, Carousel, Dropdown, Space, Modal, Form, Input } from 'antd'
+import { useCallback, useEffect, useState } from "react";
+import Profile from "../Profile/profile";
+import FormSignIn from "../FormSignIn/formSignIn";
+import {Link} from "react-router-dom"
+// Icon
+import { IoPerson } from "react-icons/io5";
+import { FaLock } from "react-icons/fa";
+
+// Image
+import smileGirl from '../../assets/img/ImgSignIn.png'
 
 
-function SideBarRight({statusProfile,setStatusProfile}) {
 
-    
+
+function SideBarRight({ statusProfile, setStatusProfile }) {
+    const [statusSignIn, setStatusSignIn] = useState(window.localStorage.getItem("account") ? true : false);
+
+    useEffect(() => {
+        const sbr = document.querySelector(".sideBarRight")
+        if (!sbr) return;
+        if (!statusProfile) sbr.classList.add("close")
+        else sbr.classList.remove("close")
+    }, [statusProfile])
+
     const closeProfile = useCallback(() => {
         setStatusProfile(false);
-    })
+    }, [statusProfile])
 
     const items = [
         {
@@ -22,81 +40,63 @@ function SideBarRight({statusProfile,setStatusProfile}) {
         }
     ];
 
-    useEffect(() => {
-        const sbr = document.querySelector(".sideBarRight")
-        if(!statusProfile) sbr.classList.add("close")
-        else sbr.classList.remove("close")
+
+
+    // Modal SignIn
+    const [statusModalSignIn, setStatusModalSignIn] = useState(false)
+
+    const openModalSignIn = useCallback(() => {
+        setStatusModalSignIn(true)
+    })
+    const closeModalSignIn = useCallback(() => {
+        setStatusModalSignIn(false)
     })
 
+
+    // 
     return (
         <>
-            <div className="sideBarRight">
-                <div className="container bg-white h-screen border-box px-3">
-                    <div className="d-flex flex-column items-center">
-                        <div className="d-flex items-center justify-between gap-x-25">
-                            <p className="font-14 font-bold">Your Profile</p>
-                            <Dropdown menu={{ items }}>
-                                <a onClick={e => e.preventDefault()}>
-                                    <Space>
-                                        <RiListSettingsFill className="cursor-pointer"/>
-                                    </Space>
-                                </a>
-                            </Dropdown>
-                        </div>
-                        <div className="HomevienImg">
-                            <img src={avatar}></img>
-                        </div>
-                        <div className="text-align-center py-3">
-                            <p className="m-0 font-14 font-bold">Good Morning Name</p>
-                            <p className="m-0 font-11 font-bold text-gray-200 py-1">Continue Your Journey And Achieve Your Target</p>
-                        </div>
-                        <div className="homeTool d-flex gap-x-3">
-                            <div><FaBell /></div>
-                            <div><FaImage /></div>
-                            <div><FaImage /></div>
-                        </div>
-                    </div>
-                    <Carousel arrows autoplay className="py-3">
-                        <div className="sbrSlide rounded">
-                            <p className="text-align-center font-bold text-white">Ôn lại các từ vựng</p>
-                        </div>
-                        <div className="sbrSlide rounded">
-                            <p className="text-align-center font-bold text-white">Love: Yêu</p>
-                        </div>
-                        <div className="sbrSlide rounded">
-                            <p className="text-align-center font-bold text-white">Hate: Ghét</p>
-                        </div>
-                        <div className="sbrSlide rounded">
-                            <p className="text-align-center font-bold text-white">Peripherals: Thiết bị ngoại vi</p>
-                        </div>
-                    </Carousel>
-                    <div className="todoList col-12 px-0 py-0">
-                        <div className="d-flex items-center justify-between py-2">
-                            <p className="font-bold m-0">Your Task</p>
-                            <button className="bg-white border-none font-20 px-0 py-0"><IoIosAddCircleOutline /></button>
-                        </div>
-                        <div className="todolist col-12 px-0 py-0 d-flex flex-column">
-                            <div className="rows items-center gap-x-3 py-2">
-                                <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
-                                <Button type="primary" className="px-2">Done</Button>
-                            </div>
-                            <div className="rows items-center gap-x-3 py-2">
-                                <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
-                                <Button type="primary" className="px-2">Done</Button>
-                            </div>
-                            <div className="rows items-center gap-x-3 py-2">
-                                <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
-                                <Button type="primary" className="px-2">Done</Button>
-                            </div>
-                            <div className="rows items-center gap-x-3 py-2">
-                                <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
-                                <Button type="primary" className="px-2">Done</Button>
-                            </div>
-                            <Button type="primary">See All</Button>
-                        </div>
+            {statusSignIn ? (
+                <div className={`sideBarRight ${!statusProfile ? "close" : ""}`}>
+                    <div className="container bg-white h-screen border-box px-3">
+                        <Profile
+                            setStatusProfile={setStatusProfile}
+                            closeProfile={closeProfile}
+                        />
                     </div>
                 </div>
-            </div>
+            ) : (
+                <div className="s-button d-flex items-center gap-x-2 relative">
+                    <button className="buttonSignIn bg-blue-200 font-bold text-white border-none py-2 px-2 rounded cursor-pointer relative" onClick={openModalSignIn}>Sign In</button>
+                    <button className="buttonSignUp bg-white font-bold text-black border-none py-2 px-2 rounded cursor-pointer relative">Sign Up</button>
+                </div>
+            )}
+
+            <Modal open={statusModalSignIn} onCancel={closeModalSignIn} footer={false} className="modalSignIn" style={{ top: "5%" }}>
+                <div className="signInFormVienIMG">
+                    <img src={smileGirl}></img>
+                </div>
+                <h1 className="m-0 text-align-center text-purple">WelCome</h1>
+                <form className="d-flex flex-column gap-y-2">
+                    <div className="d-flex flex-column relative divInputSignIn">
+                        <label className="font-bold text-gray-200">UserName</label>
+                        <input type="text" minLength={8} placeholder="Please enter your username..." className="signIninput py-2 px-6 font-bold" name="userName"></input>
+                        <IoPerson className="iconSignIn"/>
+                    </div>
+                    <div className="d-flex flex-column relative divInputSignIn">
+                        <label className="font-bold text-gray-200">PassWord</label>
+                        <input type="password" minLength={8} placeholder="Please enter your password..." className="signIninput py-2 px-6 font-bold" name="passWord"></input>
+                        <FaLock className="iconSignIn"/>
+                    </div>
+                    <Link to = {"/"}><p className="m-0 font-14 font-bold">Forgot Password?</p></Link>
+                    <button type="submit" className="signInButton bg-orange text-white border-none font-bold py-2 rounded cursor-pointer">Sign In</button>
+
+                    <div className="d-flex justify-between items-center">
+                        <p className="m-0 font-bold">No Account? Create Here</p>
+                        <p className="m-0 font-bold"> Terms and Conditions</p>
+                    </div>
+                </form>
+            </Modal>
 
         </>
     )
