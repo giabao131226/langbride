@@ -16,7 +16,7 @@ function SideBar() {
         <>
             <div className="sidebar bg-white h-screen">
                 <div className="d-flex flex-column items-center">
-                    <Link to = {"/"}><img src={logo} class="sideBar__logo"></img></Link>
+                    <Link to = {"/"}><img src={logo} className="sideBar__logo"></img></Link>
                     <div className='sideBarNav d-flex flex-column justify-between'>
                         <div className='px-4'>
                             <p className='text-gray-200 font-bold m-0  py-2'>OVERVIEW</p>
