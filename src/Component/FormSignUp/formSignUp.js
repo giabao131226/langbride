@@ -20,10 +20,21 @@ function FormSignUp({statusModalSignUp,setStatusModalSignUp}){
 
     const handleChange = useCallback((e) => {
         accountSignUp[e.target.name] = e.target.value;
-    },[])
+    })
 
     const handleSignUp = useCallback((e) => {
         e.preventDefault();
+
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
+
+        let token = "";
+
+        for(let i = 0;i<25;i++){
+            const index = Math.floor(Math.random() * ((chars.length)))
+            token+=chars[index]
+        }
+        
+        accountSignUp["token"] = token;
 
         fetch("http://localhost:3000/user",{
             method: "POST",
@@ -42,6 +53,7 @@ function FormSignUp({statusModalSignUp,setStatusModalSignUp}){
                     "type": "success",
                     "content": "“Congratulations, you have successfully signed up!”"
                 })
+                setAccountSignUp({})
             })
     },[accountSignUp])
 

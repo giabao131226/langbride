@@ -1,5 +1,5 @@
 
-import { useCallback,useEffect,useState } from "react";
+import { useCallback,useState } from "react";
 // May cai Component Ben Ngoai
 import { Link } from "react-router-dom"
 import { Modal, message } from 'antd'
@@ -12,7 +12,6 @@ import smileGirl from '../../assets/img/ImgSignIn.png'
 
 function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }) {
     const [accountSignIn, setAccountSignIn] = useState({})
-    const [messageApi, contextHolder] = message.useMessage();
 
     const closeModalSignIn = useCallback(() => {
         setStatusModalSignIn(false)
@@ -29,7 +28,9 @@ function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }
                         type: "success",
                         content: "Congratulations!! You have successfully logged in."
                     })
-                    window.localStorage.setItem("user", data[0])
+                    console.log(data[0])
+                    window.localStorage.setItem("user", JSON.stringify(data[0]))
+                    document.cookie = `token=${data[0].token}`
                     setStatusModalSignIn(false)
                     setStatusSignIn(true)
                 } else {

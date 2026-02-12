@@ -5,7 +5,13 @@ import { FaImage } from "react-icons/fa6";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { Button, Carousel, Dropdown, Space } from 'antd'
 import { useCallback, useEffect, useState } from "react";
+
+//CSS
+import "./profile.css"
+
+
 function Profile({setStatusProfile,closeProfile}) {
+    const [toDoList,setToDoList] = useState([])
 
     const items = [
         {
@@ -13,6 +19,19 @@ function Profile({setStatusProfile,closeProfile}) {
             label: (<p className="m-0 px-0 py-0" onClick={closeProfile}>Close</p>)
         }
     ];
+
+    useEffect(() => {
+        if(document.cookie){
+            const account = JSON.parse(window.localStorage.getItem("user"))
+            fetch(`http://localhost:3000/toDoList?ownerID=${account.id}&status=false&_limit=4`)
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setToDoList(data)
+                })
+        }
+    },[document.cookie])
+
     return (
         <>
             <div className="d-flex flex-column items-center">
@@ -59,7 +78,11 @@ function Profile({setStatusProfile,closeProfile}) {
                     <button className="bg-white border-none font-20 px-0 py-0"><IoIosAddCircleOutline /></button>
                 </div>
                 <div className="todolist col-12 px-0 py-0 d-flex flex-column">
-                    <div className="rows items-center gap-x-3 py-2">
+                    {toDoList.map((item) => <><div className="rows items-center gap-x-3 py-2">
+                        <p className="todo col-8 font-14 px-0 py-0 m-0">{item.conTent}</p>
+                        <Button type="primary" className="px-2">Done</Button>
+                    </div></>)}
+                    {/* <div className="rows items-center gap-x-3 py-2">
                         <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
                         <Button type="primary" className="px-2">Done</Button>
                     </div>
@@ -70,11 +93,8 @@ function Profile({setStatusProfile,closeProfile}) {
                     <div className="rows items-center gap-x-3 py-2">
                         <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
                         <Button type="primary" className="px-2">Done</Button>
-                    </div>
-                    <div className="rows items-center gap-x-3 py-2">
-                        <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
-                        <Button type="primary" className="px-2">Done</Button>
-                    </div>
+                    </div> */}
+                    
                     <Button type="primary">See All</Button>
                 </div>
             </div>

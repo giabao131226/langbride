@@ -7,11 +7,32 @@ import { useCallback, useEffect, useState } from "react";
 
 
 function PageDefault(){
-    const [statusProfile,setStatusProfile] = useState(true)
+    const [statusProfile,setStatusProfile] = useState(document.cookie ? true : false)
+    const [toDoList,setToDoList] = useState({})
 
     const openProfile = useCallback(() => {
         setStatusProfile(true)
     },[statusProfile])
+
+    useEffect(() => {
+        if(document.cookie){
+            console.log(document.cookie)
+            console.log(`http://localhost:3000/user?${document.cookie}`)
+            fetch(`http://localhost:3000/user?${document.cookie}`)
+                .then(res => res.json())
+                .then(data => {
+                    window.localStorage.setItem("user",JSON.stringify(data[0]))
+                })
+        }
+    })
+
+    useEffect(() => {
+        if(document.cookie){
+            const account = window.localStorage.getItem("user")
+            console.log(account)
+            fetch(`http://localhost:3000/toDoList?ownerID=1`)
+        }
+    })
 
     return (
         <>

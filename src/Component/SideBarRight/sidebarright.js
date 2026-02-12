@@ -13,7 +13,7 @@ import FormSignUp from "../FormSignUp/formSignUp";
 
 
 function SideBarRight({ statusProfile, setStatusProfile }) {
-    const [statusSignIn, setStatusSignIn] = useState(window.localStorage.getItem("account") ? true : false);
+    const [statusSignIn, setStatusSignIn] = useState(window.localStorage.getItem("user") ? true : false);
 
     const closeProfile = useCallback(() => {
         setStatusProfile(false);
