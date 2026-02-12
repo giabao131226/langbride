@@ -9,8 +9,6 @@ import { IoMdSettings } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
 import './sidebar.css'
 
-
-
 function SideBar() {
     return (
         <>
