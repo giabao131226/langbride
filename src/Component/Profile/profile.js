@@ -3,15 +3,25 @@ import avatar from '../../assets/img/566048339_810848405053109_44773954569590170
 import { FaBell } from "react-icons/fa";
 import { FaImage } from "react-icons/fa6";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { Button, Carousel, Dropdown, Space } from 'antd'
+import { Button, Carousel, Dropdown, Space, DatePicker, notification } from 'antd'
 import { useCallback, useEffect, useState } from "react";
 
 //CSS
 import "./profile.css"
+// Icon
+import { MdOutlineDone } from "react-icons/md";
+import { MdError } from "react-icons/md";
 
+function Profile({ setStatusProfile, closeProfile }) {
+    // Notification antd
+    const [api, contextHolder] = notification.useNotification();
+    // End Notification antd
 
-function Profile({setStatusProfile,closeProfile}) {
-    const [toDoList,setToDoList] = useState([])
+    const { RangePicker } = DatePicker
+
+    const [reload,setReload] = useState(false)
+    const [toDoList, setToDoList] = useState([])
+    const [rangeDate, setRangeDate] = useState(null)
 
     const items = [
         {
@@ -20,20 +30,87 @@ function Profile({setStatusProfile,closeProfile}) {
         }
     ];
 
+    // Modal Todolist
+    const clickToModalToDoList = useCallback(() => {
+        const modal = document.querySelector(".modalTDL")
+        if (modal) {
+            modal.classList.toggle("open")
+        }
+    })
+
+    const closeModalToDoList = useCallback(() => {
+        const modal = document.querySelector(".modalTDL")
+        if (modal) modal.classList.remove("open")
+    })
+    // End Modal Todolist
+
+    const submitTaskToDoList = useCallback((e) => {
+        e.preventDefault();
+
+        const acc = JSON.parse(localStorage.getItem("user"))
+        if (acc) {
+            const content = e.target.querySelector("input[name='conTent']").value
+
+            if (content?.trim()) {
+                const data = {
+                    ownerID: acc.id,
+                    status: false,
+                    conTent: content,
+                    dateStart: rangeDate[0],
+                    dateEnd: rangeDate[1]
+                }
+
+                fetch("http://localhost:3000/toDoList", {
+                    method: "POST",
+                    headers: {
+                        "Content-type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        api.info({
+                            title: "Congratulation!!",
+                            description: "You have successfully added the task.",
+                            icon: <MdOutlineDone />
+                        })
+                        setReload(!reload)
+                    })
+            } else {
+                api.info({
+                    title: "Error!!",
+                    description: "You need to add the tasks you have to do.",
+                    icon: <MdError />
+                })
+            }
+        }
+    })
+
+    const changeStatusTask = useCallback((id) => {
+        fetch(`http://localhost:3000/toDoList/${id}`,{
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json"
+            },body: JSON.stringify({status: true})
+        })
+            .then(res =>res.json())
+            .then(data => {setReload(!reload)})
+    },[toDoList])
+
     useEffect(() => {
-        if(document.cookie){
+        if (document.cookie) {
             const account = JSON.parse(window.localStorage.getItem("user"))
             fetch(`http://localhost:3000/toDoList?ownerID=${account.id}&status=false&_limit=4`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
                     setToDoList(data)
                 })
         }
-    },[document.cookie])
+    }, [document.cookie,reload])
 
     return (
         <>
+            {contextHolder}
             <div className="d-flex flex-column items-center">
                 <div className="d-flex items-center justify-between gap-x-25">
                     <p className="font-14 font-bold">Your Profile</p>
@@ -75,27 +152,36 @@ function Profile({setStatusProfile,closeProfile}) {
             <div className="todoList col-12 px-0 py-0">
                 <div className="d-flex items-center justify-between py-2">
                     <p className="font-bold m-0">Your Task</p>
-                    <button className="bg-white border-none font-20 px-0 py-0"><IoIosAddCircleOutline /></button>
+                    <button className="bg-white border-none font-20 px-0 py-0 cursor-pointer" onClick={clickToModalToDoList}><IoIosAddCircleOutline /></button>
                 </div>
                 <div className="todolist col-12 px-0 py-0 d-flex flex-column">
                     {toDoList.map((item) => <><div className="rows items-center gap-x-3 py-2">
                         <p className="todo col-8 font-14 px-0 py-0 m-0">{item.conTent}</p>
-                        <Button type="primary" className="px-2">Done</Button>
+                        <Button type="primary" className="px-2" onClick={() => {changeStatusTask(item.id)}}>Done</Button>
                     </div></>)}
-                    {/* <div className="rows items-center gap-x-3 py-2">
-                        <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
-                        <Button type="primary" className="px-2">Done</Button>
-                    </div>
-                    <div className="rows items-center gap-x-3 py-2">
-                        <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
-                        <Button type="primary" className="px-2">Done</Button>
-                    </div>
-                    <div className="rows items-center gap-x-3 py-2">
-                        <p className="todo col-8 font-14 px-0 py-0 m-0">Do something nice for someone</p>
-                        <Button type="primary" className="px-2">Done</Button>
-                    </div> */}
-                    
                     <Button type="primary">See All</Button>
+                </div>
+            </div>
+            <div className="modalTDL border-box">
+                <div className="container border-box px-4 py-3">
+                    <div className="d-flex items-center justify-between">
+                        <p className="font-16 font-bold m-0">Add Task</p>
+                        <button className="border-none px-0 py-0 font-16 bg-white cursor-pointer" onClick={closeModalToDoList}>X</button>
+                    </div>
+                    <form action="#" className="py-1 d-flex flex-column gap-y-1" method="POST" onSubmit={submitTaskToDoList}>
+                        <div className="addTaskElement relative">
+                            <p className="font-14 text-gray-200 font-bold m-0 py-1">Content :</p>
+                            <input type="text" name="conTent" placeholder="Enter the tasks to be done today..." className="addTaskInput px-1 font-bold py-1"></input>
+                        </div>
+                        <div className="addTaskElement">
+                            <p className="addTaskElement font-14 text-gray-200 font-bold m-0 py-1">Date Start To End :</p>
+                            <RangePicker onChange={(dates, dateStrings) => {
+                                setRangeDate(dateStrings);
+                            }} />
+                        </div>
+                        <p className="m-0 py-1"></p>
+                        <button className="addTaskButton bg-orange text-white font-bold rounded py-1 border-none cursor-pointer" type="submit">Add</button>
+                    </form>
                 </div>
             </div>
         </>

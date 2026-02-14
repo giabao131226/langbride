@@ -76,6 +76,9 @@
 .gap-x-25{
     column-gap:100px;
 }
+.gap-y-1{
+    row-gap: 4px;
+}
 .gap-y-2{
     row-gap: 8px;
 }

@@ -2,9 +2,9 @@
 .sideBarRight{
     min-width: 18vw;
     width: 18vw;
-    overflow: hidden;
     box-sizing: border-box;
     transition: 600ms ease all;
+    position: relative;
 }
 .sideBarRight.close{
     transform: translateX(18vw);
