@@ -28,11 +28,11 @@ function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }
                         type: "success",
                         content: "Congratulations!! You have successfully logged in."
                     })
-                    console.log(data[0])
                     window.localStorage.setItem("user", JSON.stringify(data[0]))
                     document.cookie = `token=${data[0].token}`
                     setStatusModalSignIn(false)
                     setStatusSignIn(true)
+                    setAccountSignIn({})
                 } else {
                     message.open({
                         type: "error",
@@ -40,7 +40,7 @@ function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }
                     })
                 }
             })
-    })
+    },[accountSignIn.length])
 
     const handleChange = useCallback((e) => {
         accountSignIn[e.target.name] = e.target.value;

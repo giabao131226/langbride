@@ -12,19 +12,11 @@ import "./sidebarright.css"
 import FormSignUp from "../FormSignUp/formSignUp";
 
 
-function SideBarRight({ statusProfile, setStatusProfile }) {
-    const [statusSignIn, setStatusSignIn] = useState(window.localStorage.getItem("user") ? true : false);
+function SideBarRight({ statusProfile, setStatusProfile,statusSignIn,setStatusSignIn }) {
 
     const closeProfile = useCallback(() => {
         setStatusProfile(false);
     }, [statusProfile])
-
-    const items = [
-        {
-            key: '1',
-            label: (<p className="m-0 px-0 py-0" onClick={closeProfile}>Close</p>)
-        }
-    ];
 
     // Modal SignIn
     const [statusModalSignIn, setStatusModalSignIn] = useState(false)
