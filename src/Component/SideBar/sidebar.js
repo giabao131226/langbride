@@ -20,7 +20,6 @@ function SideBar({setStatusSignIn}) {
         }
     })
 
-
     return (
         <>
             <div className="sidebar bg-white h-screen">
@@ -37,7 +36,9 @@ function SideBar({setStatusSignIn}) {
                                 <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaChalkboardTeacher /> Course</li></Link>
                             </ul>
                         </div>
-
+                        <div>
+                            
+                        </div>
                         <div className='px-4 py-6'>
                             <p className='text-gray-200 font-bold m-0 py-2'>SETTINGS</p>
                             <ul className='sideBarTool list-style-type-none m-0 px-3 d-flex flex-column gap-y-2'>

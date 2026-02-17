@@ -1,4 +1,8 @@
-
+.main{
+  flex: 1;
+  min-width: 0;
+  overflow-y: scroll;
+}
 .openProfile{
     height: 20px;
     top: 20px;

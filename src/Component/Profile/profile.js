@@ -12,7 +12,10 @@ import "./profile.css"
 import { MdOutlineDone } from "react-icons/md";
 import { MdError } from "react-icons/md";
 
-function Profile({ setStatusProfile, closeProfile }) {
+function Profile({ closeProfile }) {
+
+    const [account,setAccount] = useState({})
+
     // Notification antd
     const [api, contextHolder] = notification.useNotification();
     // End Notification antd
@@ -75,6 +78,7 @@ function Profile({ setStatusProfile, closeProfile }) {
                             icon: <MdOutlineDone />
                         })
                         setReload(!reload)
+                        console.log(data)
                     })
             } else {
                 api.info({
@@ -99,7 +103,7 @@ function Profile({ setStatusProfile, closeProfile }) {
 
     useEffect(() => {
         if (document.cookie) {
-            const account = JSON.parse(window.localStorage.getItem("user"))
+            setAccount(JSON.parse(window.localStorage.getItem("user")))
             fetch(`http://localhost:3000/toDoList?ownerID=${account.id}&status=false&_limit=4`)
                 .then(res => res.json())
                 .then(data => {
@@ -126,7 +130,7 @@ function Profile({ setStatusProfile, closeProfile }) {
                     <img src={avatar}></img>
                 </div>
                 <div className="text-align-center py-3">
-                    <p className="m-0 font-14 font-bold">Good Morning Name</p>
+                    <p className="m-0 font-14 font-bold">Hello {account.userName}!!</p>
                     <p className="m-0 font-11 font-bold text-gray-200 py-1">Continue Your Journey And Achieve Your Target</p>
                 </div>
                 <div className="homeTool d-flex gap-x-3">

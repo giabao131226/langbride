@@ -26,13 +26,13 @@ function PageDefault(){
 
     return (
         <>
-            <div className="container-fluid h-screen text-align-start">
+            <div className="container-fluid text-align-start">
                 <div className="d-flex over-flow-hidden relative">
                     <SideBar setStatusSignIn = {setStatusSignIn} />
-                    <div className="main d-flex">
-                        <Outlet />
+                    <div className="main">
+                        <Outlet context={{ statusSignIn, setStatusSignIn }}/>
                     </div>
-                    <button className = {` openProfile font-20 bg-white border-none px-0 py-0 relative cursor-pointer ${statusProfile === true ? "d-none" : ""}`} onClick={openProfile}><ImProfile / ></button>
+                    <button className = {`openProfile font-20 bg-white border-none px-0 py-0 relative cursor-pointer ${statusProfile === true ? "d-none" : ""}`} onClick={openProfile}><ImProfile / ></button>
                     <SideBarRight statusProfile = {statusProfile} setStatusProfile = {setStatusProfile} statusSignIn = {statusSignIn} setStatusSignIn = {setStatusSignIn}/>
                 </div >
             </div>

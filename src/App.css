@@ -1,8 +1,4 @@
-.main{
-  box-sizing: border-box;
-  flex: 1;
-}
+
 .pageDefault{
-  box-sizing: border-box;
   width: 100vw;
 }
