@@ -104,7 +104,8 @@ function Profile({ closeProfile }) {
     useEffect(() => {
         if (document.cookie) {
             setAccount(JSON.parse(window.localStorage.getItem("user")))
-            fetch(`http://localhost:3000/toDoList?ownerID=${account.id}&status=false&_limit=4`)
+            const acc = JSON.parse(window.localStorage.getItem("user"))
+            fetch(`http://localhost:5000/to-do-list/${acc._id}/${false}`)
                 .then(res => res.json())
                 .then(data => {
                     setToDoList(data)
