@@ -1,0 +1,148 @@
+
+.sideBarRight{
+    min-width: 18vw;
+    width: 18vw;
+    box-sizing: border-box;
+    transition: 600ms ease all;
+    position: relative;
+}
+.sideBarRight.close{
+    transform: translateX(18vw);
+    width: 0px;
+    min-width: 0px;
+}
+.HomevienImg{
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    overflow: hidden;
+    border: 4px solid blue;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.HomevienImg img{
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+.todo{
+    height: 30px;
+    overflow: hidden;
+}
+.sbrSlide{
+    height: 50px;
+    background-color: rgb(106, 106, 241);
+}
+.s-button{
+    position: relative;
+    height: 30px;
+    top: 17px;
+    right: 5px;
+}
+.buttonSignIn{
+    transition: 600ms all ease;
+}
+.buttonSignIn::after{
+    content: "";
+    display: block;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    z-index: -1;
+    border-radius: 5px;
+    background-color: #9cc6f0;
+    transition: 600ms all ease;
+    height: calc(100% + 4px);
+    width: calc(100% + 4px);
+    transform-origin: center;
+    transform: scaleX(0);
+}
+.buttonSignIn:hover{
+    background-color: rgb(126, 126, 240);
+}
+.buttonSignIn:hover::after{
+    transform: scaleX(1);
+}
+.buttonSignUp{
+    transition: 600ms all ease;
+}
+.buttonSignUp::after{
+    content: "";
+    display: block;
+    height: calc(100% + 4px);
+    width: calc(100% + 4px);
+    background-color: black;
+    z-index: -1;
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    border-radius: 6px;
+
+    transform-origin: center;
+    transform: scaleX(0);
+    transition: 600ms all ease;
+}
+.buttonSignUp:hover{
+    background-color: rgb(5, 5, 5);
+    color: white;
+}
+.buttonSignUp:hover::after{
+    transform: scaleX(1);
+}
+.modalSignIn .ant-modal-content {
+    margin-bottom: 30px;
+}
+.signInFormVienIMG{
+    overflow: hidden;
+    width: calc(110% + 2px);
+    height: 200px;
+    position: relative;
+    left: -25px;
+    top: -25px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.signInFormVienIMG img{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.signIninput{
+    position: relative;
+    outline: none;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    transition: 600ms all ease;
+}
+.iconSignIn{
+    position: absolute;
+    bottom: 12px;
+    font-size: 18px;
+}
+
+.divInputSignIn::after{
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: black;
+    bottom: 0;
+    border-radius: 6px;
+    transition: 600ms all ease;
+
+    transform-origin: center;
+    transform: scaleX(0);
+}
+.divInputSignIn:focus-within::after{
+    transform: scaleX(1);
+}
+.signInButton{
+    transition: 800ms all ease;
+}
+.signInButton:hover{
+    filter: opacity(0.7);
+}

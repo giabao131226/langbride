@@ -1,0 +1,16 @@
+.main{
+  flex: 1;
+  min-width: 0;
+  overflow-y:  scroll;
+  overflow-x: hidden;
+  height: 100vh;
+}
+.openProfile{
+    height: 20px;
+    top: 20px;
+    right: 0;
+    margin-right: 10px;
+}
+.pageDefault{
+  overflow: visible;
+}

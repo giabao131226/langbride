@@ -1,0 +1,68 @@
+
+.todolist{
+    max-height: 224px;
+    height: 224px;
+}
+
+/* Modal ToDoList */
+.modalTDL{
+    display: block;
+    background-color: white;
+    width: 20vw;
+    height: 35vh;
+
+    position: absolute;
+    bottom: 70px;
+    right: 240px;
+
+    border-radius: 20px;
+
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    transition: 600ms all ease;
+    transform-origin: top right;
+    transform: scale(0);
+}
+.modalTDL.open{
+    transform: scale(1);
+}
+.addTaskInput{
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    outline: none;
+}
+.addTaskElement p{
+    transition: 600ms all ease;
+    transform-origin: center;
+}
+.addTaskElement:first-child:after{
+    display: block;
+    content: "";
+    width: 100%;
+    height: 2px;
+    background-color: black;
+
+    position: absolute;
+    bottom: 0;
+
+    transform-origin: center;
+    transition: 600ms all ease;
+    transform: scaleX(0);
+}
+.addTaskElement:focus-within::after{
+    transform: scaleX(1);
+}
+.addTaskElement:focus-within.addTaskElement p{
+    color: #338bf5;
+}
+.addTaskElement:focus-within p{
+    color: #338bf5;
+}
+.addTaskButton{
+    transition: 600ms all ease;
+}
+.addTaskButton:hover{
+    opacity: 0.7;
+}
+/* End Modal TodoList */
