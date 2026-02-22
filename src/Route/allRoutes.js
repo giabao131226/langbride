@@ -1,6 +1,7 @@
 
 import PageDefault from "../Component/PageDefault/pagedefault";
 import Home from "../Component/Home/home";
+import Quiz from "../Component/Quiz/quiz";
 
 const routes = [
     {
@@ -9,8 +10,12 @@ const routes = [
         children: [
             {
                 path: "/",
-                element: <Home />
-            }
+                element: <Home />,
+            },
+            {
+                        path: "/quiz",
+                        element: <Quiz />,
+                    }
         ]
     }
 ]

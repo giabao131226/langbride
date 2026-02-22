@@ -20,16 +20,26 @@ function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }
     const handleSignIn = useCallback((e) => {
         e.preventDefault();
 
-        fetch(`http://localhost:3000/user?userName=${accountSignIn.userName}&passWord=${accountSignIn.passWord}`)
+        console.log(accountSignIn)
+
+        fetch(`http://localhost:5000/sign-in`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(accountSignIn)
+        })
             .then(res => res.json())
             .then(data => {
-                if (data[0]) {
+                if (data.user) {
                     message.open({
                         type: "success",
                         content: "Congratulations!! You have successfully logged in."
                     })
-                    window.localStorage.setItem("user", JSON.stringify(data[0]))
-                    document.cookie = `token=${data[0].token}`
+                    window.localStorage.setItem("user", JSON.stringify(data.user))
+                    document.cookie = `token=${data.user}`
+                    const form = document.querySelector("#sign-in-form")
+                    form.reset();
                     setStatusModalSignIn(false)
                     setStatusSignIn(true)
                     setAccountSignIn({})
@@ -40,7 +50,7 @@ function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }
                     })
                 }
             })
-    },[accountSignIn.length])
+    })
 
     const handleChange = useCallback((e) => {
         accountSignIn[e.target.name] = e.target.value;

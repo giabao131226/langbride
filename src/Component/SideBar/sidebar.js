@@ -30,7 +30,7 @@ function SideBar({setStatusSignIn}) {
                             <p className='text-gray-200 font-bold m-0  py-2'>OVERVIEW</p>
                             <ul className='sideBarTool list-style-type-none m-0 px-3 d-flex flex-column gap-y-2'>
                                 <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaHome /> Home</li></Link>
-                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><MdQuiz /> Quiz</li></Link>
+                                <Link to={"quiz"} className='text-decoration-none '><li className='text-black font-bold'><MdQuiz /> Quiz</li></Link>
                                 <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><MdPlayLesson /> Lesson</li></Link>
                                 <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaTasks /> Task</li></Link>
                                 <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaChalkboardTeacher /> Course</li></Link>

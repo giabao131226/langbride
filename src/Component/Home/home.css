@@ -1,5 +1,5 @@
 .homeSearch{
-    min-width: 95%;
+    flex: 1;
 }
 .homeSlide{
     height: 200px;

@@ -26,7 +26,7 @@ function PageDefault(){
 
     return (
         <>
-            <div className="container-fluid text-align-start">
+            <div className="pageDefault container-fluid text-align-start">
                 <div className="d-flex over-flow-hidden relative">
                     <SideBar setStatusSignIn = {setStatusSignIn} />
                     <div className="main">

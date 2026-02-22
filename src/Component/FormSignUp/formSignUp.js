@@ -1,7 +1,8 @@
-import { useCallback,useEffect,useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 // May cai Component Ben Ngoai
 import { Modal, message } from 'antd'
 // CSS
+import "./formSignUp.css"
 // Icon
 import { IoPerson } from "react-icons/io5";
 import { FaLock } from "react-icons/fa";
@@ -11,8 +12,8 @@ import { FaPhoneAlt } from "react-icons/fa";
 import smileGirl from '../../assets/img/ImgSignIn.png'
 
 
-function FormSignUp({statusModalSignUp,setStatusModalSignUp}){
-    const [accountSignUp,setAccountSignUp] = useState({})
+function FormSignUp({ statusModalSignUp, setStatusModalSignUp }) {
+    const [accountSignUp, setAccountSignUp] = useState({})
 
     const closeModalSignUp = useCallback(() => {
         setStatusModalSignUp(false)
@@ -29,33 +30,52 @@ function FormSignUp({statusModalSignUp,setStatusModalSignUp}){
 
         let token = "";
 
-        for(let i = 0;i<25;i++){
+        for (let i = 0; i < 25; i++) {
             const index = Math.floor(Math.random() * ((chars.length)))
-            token+=chars[index]
+            token += chars[index]
         }
-        
+
         accountSignUp["token"] = token;
 
-        fetch("http://localhost:3000/user",{
+        fetch("http://localhost:5000/sign-up", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
             },
             body: JSON.stringify(accountSignUp)
         })
-            .then(res => res.json())
-            .then(data => {
-                const formSignUp = document.querySelector("#sign-up-form")
-                formSignUp.reset();
-
-                setStatusModalSignUp(false);
-                message.open({
-                    "type": "success",
-                    "content": "“Congratulations, you have successfully signed up!”"
-                })
-                setAccountSignUp({})
+            .then(async res => {
+                const data = await res.json();
+                return data;
             })
-    },[accountSignUp])
+            .then(data => {
+                if (data.user) {
+                    const formSignUp = document.querySelector("#sign-up-form")
+                    formSignUp.reset();
+                    setStatusModalSignUp(false);
+                    message.open({
+                        "type": "success",
+                        "content": "“Congratulations, you have successfully signed up!”"
+                    })
+                    setAccountSignUp({})
+                } else {
+                    const position = data.possition;
+                    const inputError = document.querySelector(`[name=${position}]`).closest(".divInputSignIn")
+                    inputError.classList.add("error")
+                    const newElement = document.createElement('p')
+                    newElement.classList.add('text-error')
+                    newElement.textContent = data.message;
+                    
+                    inputError.insertAdjacentElement("afterend",newElement)
+
+                    message.open({
+                        "type": "error",
+                        "content": data.message
+                    })
+                }
+            })
+
+    }, [accountSignUp])
 
     return (
         <>
@@ -64,12 +84,13 @@ function FormSignUp({statusModalSignUp,setStatusModalSignUp}){
                     <img src={smileGirl}></img>
                 </div>
                 <h1 className="m-0 text-align-center text-purple">WelCome</h1>
-                <form className="d-flex flex-column gap-y-2" method="POST" id = "sign-up-form" onSubmit={handleSignUp}>
+                <form className="d-flex flex-column gap-y-2" method="POST" id="sign-up-form" onSubmit={handleSignUp}>
                     <div className="d-flex flex-column relative divInputSignIn">
                         <label className="font-bold text-gray-200">UserName</label>
                         <input type="text" minLength={8} maxLength={20} placeholder="Please enter your username..." className="signIninput py-2 px-6 font-bold" name="userName" required onChange={handleChange}></input>
                         <IoPerson className="iconSignIn" />
                     </div>
+                    
                     <div className="d-flex flex-column relative divInputSignIn">
                         <label className="font-bold text-gray-200">PassWord</label>
                         <input type="password" minLength={8} placeholder="Please enter your password..." className="signIninput py-2 px-6 font-bold" name="passWord" required onChange={handleChange}></input>

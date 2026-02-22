@@ -42,6 +42,15 @@ table{
 .text-purple{
     color: rgb(87, 9, 129);
 }
+.text-blue-400{
+    color: #6758FF;
+}
+.text-yellow{
+    color: yellow;
+}
+.text-orange{
+    color: orange;
+}
 .flex-parent{
     width: 250px;
 	height: 250px;
