@@ -14,7 +14,7 @@ import { MdError } from "react-icons/md";
 
 function Profile({ closeProfile }) {
 
-    const [account,setAccount] = useState({})
+    const [account, setAccount] = useState({})
 
     // Notification antd
     const [api, contextHolder] = notification.useNotification();
@@ -22,7 +22,7 @@ function Profile({ closeProfile }) {
 
     const { RangePicker } = DatePicker
 
-    const [reload,setReload] = useState(false)
+    const [reload, setReload] = useState(false)
     const [toDoList, setToDoList] = useState([])
     const [rangeDate, setRangeDate] = useState(null)
 
@@ -56,14 +56,14 @@ function Profile({ closeProfile }) {
 
             if (content?.trim()) {
                 const data = {
-                    ownerID: acc.id,
+                    ownerID: acc._id,
                     status: false,
                     conTent: content,
                     dateStart: rangeDate[0],
                     dateEnd: rangeDate[1]
                 }
 
-                fetch("http://localhost:3000/toDoList", {
+                fetch(`http://localhost:5000/to-do-list/add-task`, {
                     method: "POST",
                     headers: {
                         "Content-type": "application/json"
@@ -78,7 +78,6 @@ function Profile({ closeProfile }) {
                             icon: <MdOutlineDone />
                         })
                         setReload(!reload)
-                        console.log(data)
                     })
             } else {
                 api.info({
@@ -91,15 +90,24 @@ function Profile({ closeProfile }) {
     })
 
     const changeStatusTask = useCallback((id) => {
-        fetch(`http://localhost:3000/toDoList/${id}`,{
+        console.log(id)
+
+        fetch(`http://localhost:5000/to-do-list/change-status/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-type": "application/json"
-            },body: JSON.stringify({status: true})
+            }, body: JSON.stringify({ status: true })
         })
-            .then(res =>res.json())
-            .then(data => {setReload(!reload)})
-    },[toDoList])
+            .then(res => res.json())
+            .then(data => {
+                api.info({
+                    title: "Congratulation!!",
+                    description: "Great! You've just completed a task.",
+                    icon: <MdOutlineDone />
+                })
+                setReload(!reload)
+            })
+    })
 
     useEffect(() => {
         if (document.cookie) {
@@ -108,10 +116,11 @@ function Profile({ closeProfile }) {
             fetch(`http://localhost:5000/to-do-list/${acc._id}/${false}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data)
                     setToDoList(data)
                 })
         }
-    }, [document.cookie,reload])
+    }, [document.cookie, reload])
 
     return (
         <>
@@ -162,7 +171,7 @@ function Profile({ closeProfile }) {
                 <div className="todolist col-12 px-0 py-0 d-flex flex-column">
                     {toDoList.map((item) => <><div className="rows items-center gap-x-3 py-2">
                         <p className="todo col-8 font-14 px-0 py-0 m-0">{item.conTent}</p>
-                        <Button type="primary" className="px-2" onClick={() => {changeStatusTask(item.id)}}>Done</Button>
+                        <Button type="primary" className="px-2" onClick={() => { changeStatusTask(item._id) }}>Done</Button>
                     </div></>)}
                     <Button type="primary">See All</Button>
                 </div>
