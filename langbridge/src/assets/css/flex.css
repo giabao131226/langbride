@@ -126,13 +126,28 @@
     box-sizing: border-box;
     padding: 8px;
 }
+.col-5{
+    width: calc((100% / 12)*5);
+    box-sizing: border-box;
+    padding: 8px;
+}
 .col-6{
     width: calc(100% / 2);
     box-sizing: border-box;
     padding: 8px;
 }
+.col-7{
+    width: calc((100% / 12)*7);
+    box-sizing: border-box;
+    padding: 8px;
+}
 .col-8{
     width: calc((100% / 12)*8);
+    box-sizing: border-box;
+    padding: 8px;
+}
+.col-9{
+    width: calc((100% / 12)*9);
     box-sizing: border-box;
     padding: 8px;
 }

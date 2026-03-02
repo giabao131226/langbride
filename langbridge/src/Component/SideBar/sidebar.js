@@ -33,7 +33,7 @@ function SideBar({setStatusSignIn}) {
                                 <Link to={"quiz"} className='text-decoration-none '><li className='text-black font-bold'><MdQuiz /> Quiz</li></Link>
                                 <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><MdPlayLesson /> Lesson</li></Link>
                                 <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaTasks /> Task</li></Link>
-                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaChalkboardTeacher /> Course</li></Link>
+                                <Link to={"/course"} className='text-decoration-none '><li className='text-black font-bold'><FaChalkboardTeacher /> Course</li></Link>
                             </ul>
                         </div>
                         <div>

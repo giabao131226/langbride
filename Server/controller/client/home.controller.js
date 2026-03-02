@@ -52,7 +52,7 @@ module.exports.signIn = async (req,res) => {
     try{
         const account = req.body;
         const user = await Users.findOne({userName: account.userName,passWord: account.passWord})
-
+        console.log(user)
         if(!user){
             return res.status(401).json({
                 success: false,

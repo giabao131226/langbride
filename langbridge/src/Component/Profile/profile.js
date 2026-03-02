@@ -12,6 +12,8 @@ import "./profile.css"
 import { MdOutlineDone } from "react-icons/md";
 import { MdError } from "react-icons/md";
 
+
+import {Link} from "react-router-dom"
 function Profile({ closeProfile }) {
 
     const [account, setAccount] = useState({})
@@ -29,6 +31,10 @@ function Profile({ closeProfile }) {
     const items = [
         {
             key: '1',
+            label: (<Link to = {"/edit-profile"}><p className="m-0 px-0 py-0">Edit Profile</p></Link>)
+        },
+        {
+            key: '2',
             label: (<p className="m-0 px-0 py-0" onClick={closeProfile}>Close</p>)
         }
     ];
@@ -90,7 +96,6 @@ function Profile({ closeProfile }) {
     })
 
     const changeStatusTask = useCallback((id) => {
-        console.log(id)
 
         fetch(`http://localhost:5000/to-do-list/change-status/${id}`, {
             method: "PATCH",
@@ -111,12 +116,12 @@ function Profile({ closeProfile }) {
 
     useEffect(() => {
         if (document.cookie) {
+            console.log(JSON.parse(window.localStorage.getItem("user")))
             setAccount(JSON.parse(window.localStorage.getItem("user")))
             const acc = JSON.parse(window.localStorage.getItem("user"))
             fetch(`http://localhost:5000/to-do-list/${acc._id}/${false}`)
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
                     setToDoList(data)
                 })
         }
@@ -137,7 +142,9 @@ function Profile({ closeProfile }) {
                     </Dropdown>
                 </div>
                 <div className="HomevienImg">
-                    <img src={avatar}></img>
+                    {
+                        account.avatar ? <img src={`http://localhost:5000${account.avatar}`}></img> : <img src={avatar}></img>
+                    }
                 </div>
                 <div className="text-align-center py-3">
                     <p className="m-0 font-14 font-bold">Hello {account.userName}!!</p>

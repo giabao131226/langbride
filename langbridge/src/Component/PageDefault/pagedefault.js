@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react";
 function PageDefault(){
     const [statusProfile,setStatusProfile] = useState(document.cookie ? true : false)
     const [statusSignIn,setStatusSignIn] = useState(document.cookie ? true : false)
+    
 
     const openProfile = useCallback(() => {
         setStatusProfile(true)

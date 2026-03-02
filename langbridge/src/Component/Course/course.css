@@ -1,0 +1,230 @@
+
+:root{
+    --color-button-course: #07A698;
+    --bg-Course: #07A698;
+}
+.bg-buttonCourse{
+    background-color: var(--color-button-course);
+    cursor: pointer;
+    position: relative;
+
+    z-index: 1;
+}
+.bg-buttonCourse:hover::before{
+    transform: scaleX(1);
+}
+.bg-buttonCourse::before{
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    z-index: -1;
+    border-radius: 20px;
+    background-color: #39B8AD;
+
+    transition: 600ms all ease;
+    transform-origin: left;
+    transform: scaleX(0);
+}
+
+
+.course{
+    height: 100%;
+}
+
+.courseWelcome{
+    width: 100%;
+    height: 100%;
+
+    background-color: #0E2C31;
+
+    padding: 50px;
+}
+
+.coureButton button:last-child{
+    background-color: transparent;
+
+    border: 2px solid white;
+}
+
+.coureWelcome__img{
+    background-image: url("https://wp.rrdevs.net/edcare/wp-content/uploads/2024/12/hero-img-2.png");
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border: 7px solid white;
+    border-radius: 10px;
+}
+
+.coureWelcome__icon{
+    position: absolute;
+    bottom: 20px;
+}
+.courseTool{
+    transition: all ease 600ms;
+    cursor: pointer;
+    border-radius: 100%;
+}
+.courseTool:hover{
+    background-color: #07A698;
+    color: white;
+}
+.CourseFeatures{
+    padding: 30px 40px;
+}
+.CourseFeaturesBox{
+    padding: 30px;
+    height: 300px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.CourseFeaturesBox button{
+    border: none;
+    border: 1px solid #ddd;
+    transition: all ease 600ms;
+    z-index: 1;
+    transform-origin: left;
+    position: relative;
+}
+
+.CourseFeaturesBox button::before{
+    z-index: -1;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #07A698;
+
+    transition: all ease 300ms;
+    transform: scaleX(0);
+    transform-origin: left;
+
+    position: absolute;
+    left: 0;
+}
+.CourseFeaturesBox button:hover::before{
+    transform: scaleX(1);
+}
+.CourseFeaturesBox button:hover{
+    color: white;
+}
+
+/* OurPlatform */
+.OurPlatform{
+    background-color: white;
+    padding: 40px;
+}
+.OurPlatform .header{
+    border: 1px solid #ddd;
+}
+.OurPlatform .vienimg{
+
+    height: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+
+}
+.OurPlatform .vienimg img{
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+.bg-Course{
+    background-color: var(--bg-Course);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+
+.CourseOurTeacher{
+    padding: 50px;
+}
+.CourseOurTeacherHeader{
+    padding-bottom: 30px;
+}
+.Instructors:hover{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+.Instructors:hover .InstructorsDetail{
+    transform: translateY(0%);
+}
+.InstructorsDetail{
+    width: 100%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, 0.7);
+    bottom: 0;
+
+    padding: 20px;
+
+    transition: all ease 600ms;
+    transform: translateY(100%);
+
+}
+
+.InstructorsDetail p:nth-child(2){
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+.InstructorSocial{
+    padding-top: 10px;
+}
+.InstructorSocial a:hover{
+    color: rgb(74, 74, 237);
+}
+
+/* Course Main */
+.CourseMain{
+    padding: 30px;
+}
+.CourseButton{
+    padding: 5px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    font-size: 14px;
+}
+.CourseButton.active{
+    background-color: var(--bg-Course);
+    color: white;
+}
+.HotInstructor .col-4{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    transition: all 600ms ease;
+    cursor: pointer;
+}
+.HotInstructor .col-4:hover{
+    transform: translateY(-10px);
+}
+.HotCourseBanner{
+    width: 100%;
+    border-radius: 20px;
+    border: 3px solid #ddd;
+}
+.HotCourseDetail{
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+}
+.HotInstructorDetail .vienimg{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.HotInstructorDetail .vienimg img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}

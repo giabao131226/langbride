@@ -78,7 +78,7 @@ table{
     background-color: var(--color-primary) !important;
 }
 .bg-gray{
-    background-color: #F9F9F9;
+    background-color: rgb(216, 212, 212);
 }
 .bg-gray-700{
     background-color: #F7F7F7;
@@ -91,6 +91,9 @@ table{
 }
 .bg-orange{
     background-color: orange;
+}
+.bg-transparent{
+    background-color: transparent;
 }
 .border-none{
     border: none;
@@ -140,6 +143,9 @@ table{
 }
 .font-30{
     font-size: 30px;
+}
+.font-40{
+    font-size: 40px;
 }
 .font-bold{
     font-weight: bold;
@@ -260,4 +266,18 @@ table{
 }
 .cursor-pointer{
     cursor: pointer;
+}
+
+.rounded-50{
+    border-radius: 50%;
+}
+.rounded-5{
+    border-radius: 20px;
+}
+
+.font-normal{
+    font-weight: normal;
+}
+.overflow-hidden{
+    overflow: hidden;
 }

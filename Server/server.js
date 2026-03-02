@@ -16,6 +16,10 @@ app.use(methodOverride('X-HTTP-Method-Override'))
 app.use(cors());
 app.use(express.json());
 
+app.use(express.static("public"))
+app.use("/uploads",express.static("uploads"))
+
+
 routes(app)
 
 const PORT = 5000;
