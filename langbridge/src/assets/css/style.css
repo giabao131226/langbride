@@ -36,6 +36,9 @@ table{
 .text-gray-400{
     color: #00C2C5;
 }
+.text-gray-600{
+    color: gray;
+}
 .text-black{
     color: black;
 }
