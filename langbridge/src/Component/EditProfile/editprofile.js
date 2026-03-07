@@ -20,7 +20,6 @@ function EditProfile() {
     })
 
     const handleChange = useCallback((e) => {
-        console.log("đã thay thế")
         const {name,value} = e.target;
         setFormValue({
             ...formValue,
@@ -29,14 +28,21 @@ function EditProfile() {
     })
 
 
+    const handleChangeImg = useCallback((e) => {
+        const userAvatar = document.querySelector(".EditProfile .EditProfileAvatar #user-avatar")
+        
+        const inputFile = e.target;
+
+        userAvatar.setAttribute("src",URL.createObjectURL(inputFile.files[0]))
+    })
+
     // Tạo một hộp lưu trữ để gán vào form lấy ra ttin form
     const formRef = useRef()
 
     const handleSubmit = useCallback((e) => {
         e.preventDefault();
-        console.log("đã submit")
+       
         const formData = new FormData(formRef.current);
-        console.log(formData)
         for (let pair of formData.entries()) {
             console.log(pair[0], pair[1]);
         }
@@ -80,12 +86,12 @@ function EditProfile() {
                         <div className="d-flex items-center justify-center">
                             <div className="EditProfileAvatar d-flex items-center justify-center relative py-3">
                                 <div className="vienimg">
-                                    <img src={`http://localhost:5000${formValue.avatar}`}></img>
+                                    <img src={`http://localhost:5000${formValue.avatar}`} id = "user-avatar"></img>
                                 </div>
                                 <label className="EditProfilePen text-white bg-blue font-11 px-1 py-1 rounded-50 d-flex items-center justify-center cursor-pointer absolute" for="fileImg">
                                     <FaPen />
                                 </label>
-                                <input type="file" className="absolute" name="avatar" id="fileImg"></input>
+                                <input type="file" className="absolute" name="avatar" id="fileImg" onChange={handleChangeImg}></input>
                             </div>
                         </div>
                         <label className="font-bold text-gray-600">ID UserName</label>
