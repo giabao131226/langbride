@@ -19,13 +19,13 @@ module.exports.signUp = async (req, res) => {
         const account = req.body;
         if (!validate.validateName(account.userName)) {
             return res.json({ success: false, 
-                            message: "Username must be up to 8 characters and contain only letters and numbers.", 
+                            message: "Username must be 6–16 characters long and contain only letters and numbers.", 
                             possition: "userName" })
         }
         if(!validate.validatePassword(account.passWord)){
             return res.json({
                 success: false,
-                message: "Password must be 8–16 characters long and include at least one uppercase letter, one lowercase letter, and one number.",
+                message: "Password must be at least 8 characters long and contain only letters or numbers.",
                 possition: "passWord"
             })
         }
@@ -87,15 +87,28 @@ module.exports.signUp = async (req, res) => {
 module.exports.signIn = async (req, res) => {
     try {
         const account = req.body;
+
+        if (!validate.validateName(account.userName)) {
+            return res.json({ success: false, 
+                            message: "Username must be 6–16 characters long and contain only letters and numbers.", 
+                            possition: "userName" })
+        }
+        if(!validate.validatePassword(account.passWord)){
+            return res.json({
+                success: false,
+                message: "Password must be at least 8 characters long and contain only letters or numbers.",
+                possition: "passWord"
+            })
+        }
+
         const user = await Users.findOne({ userName: account.userName, passWord: account.passWord })
-        console.log(user)
         if (!user) {
-            return res.status(401).json({
+            return res.json({
                 success: false,
                 message: "Incorrect account or password!!"
             })
         }
-        return res.status(200).json({ user })
+        return res.status(200).json({success: true,user: user})
 
     } catch (error) {
         console.log(error)

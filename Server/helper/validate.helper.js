@@ -2,12 +2,12 @@
 
 // Validate Name
 module.exports.validateName = (value) => {
-    return /^[a-zA-Z0-9]{1,8}$/.test(value);
+    return /^[a-zA-Z0-9]{6,16}$/.test(value);
 }
 // 
 // Validate password
 module.exports.validatePassword = (value) => {
-    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,16}$/.test(value)
+    return /^[A-Za-z0-9]{8,}$/.test(value)
 }
 //
 // Validate Email

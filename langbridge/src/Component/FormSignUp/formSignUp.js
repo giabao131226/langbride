@@ -94,7 +94,7 @@ function FormSignUp({ statusModalSignUp, setStatusModalSignUp }) {
                 <form className="d-flex flex-column gap-y-2" method="POST" id="sign-up-form" onSubmit={handleSignUp}>
                     <div className="d-flex flex-column relative divInputSignIn divInputSignUp">
                         <label className="font-bold text-gray-200">UserName</label>
-                        <input type="text" minLength={8} maxLength={20} placeholder="Please enter your username..." className="signIninput py-2 px-6 font-bold" name="userName" required onChange={handleChange} alert-error = 'error-name' onKeyUp={deleteAlertError}></input>
+                        <input type="text" minLength={6} maxLength={20} placeholder="Please enter your username..." className="signIninput py-2 px-6 font-bold" name="userName" required onChange={handleChange} alert-error = 'error-name' onKeyUp={deleteAlertError}></input>
                         <IoPerson className="iconSignIn" />
                     </div>
                     <p className="text-error" id="error-name"></p>
