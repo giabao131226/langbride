@@ -20,8 +20,6 @@ function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }
     const handleSignIn = useCallback((e) => {
         e.preventDefault();
 
-        console.log(accountSignIn)
-
         fetch(`http://localhost:5000/sign-in`,{
             method: "POST",
             headers: {
@@ -73,7 +71,7 @@ function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }
                         <input type="password" minLength={8} placeholder="Please enter your password..." className="signIninput py-2 px-6 font-bold" name="passWord" required onChange={handleChange}></input>
                         <FaLock className="iconSignIn" />
                     </div>
-                    <Link to={"/"}><p className="m-0 font-14 font-bold">Forgot Password?</p></Link>
+                    <Link to={"/forgot-password"}><p className="m-0 font-14 font-bold">Forgot Password?</p></Link>
                     <button type="submit" className="signInButton bg-orange text-white border-none font-bold py-2 rounded cursor-pointer">Sign In</button>
 
                     <div className="d-flex justify-between items-center">

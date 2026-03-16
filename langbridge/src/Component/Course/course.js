@@ -18,6 +18,7 @@ import { Rate } from 'antd';
 
 
 import "./course.css"
+import HotCourse from "./HotCourse/hotCourse";
 
 function Course() {
     return (
@@ -355,6 +356,8 @@ function Course() {
                                 </div>
                             </div>
                         </div>
+
+                        <HotCourse />
                     </div>
                 </div>
             </div>

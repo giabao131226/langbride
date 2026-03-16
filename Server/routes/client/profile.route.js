@@ -8,5 +8,6 @@ const upload = multer({storage: storageMulter()})
 const controller = require('../../controller/client/profile.controller');
 
 router.post("/edit-profile",upload.single('avatar'),controller.editProfile)
+router.post("/forgot-password",controller.forgotPassword)
 
 module.exports = router;
