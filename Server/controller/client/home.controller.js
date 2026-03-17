@@ -9,7 +9,6 @@ module.exports.home = async (req, res) => {
     const user = await Users.find({})
     res.json(user);
 
-    res.send("abc")
 }
 
 // Xử lý đăng ký

@@ -9,123 +9,80 @@ import "./forgotPassword.css"
 function ForgotPassword() {
     const [api, contextHolder] = notification.useNotification();
 
-    function changePassWord(e) {
-        e.preventDefault()
+    const handleSendCode = useCallback((e) => {
+        const inputEmail = document.querySelector("form input[name='email']")
 
-        const inputEmail = e.target.querySelector("input[name='email']")
-        const inputNewPassword = e.target.querySelector("input[name='newPassword']")
-        const inputConfirmPassword = e.target.querySelector("input[name='confirmPassword']")
+        console.log(inputEmail.value)
 
-        // Kiểm tra xem có giống password k
-        if (inputNewPassword.value != inputConfirmPassword.value) {
-            inputConfirmPassword.classList.add("alert-error")
-            return;
-        }
-        // 
+        if (!inputEmail.value) return;
 
-        const data = {
-            email: inputEmail.value,
-            newPassword: inputNewPassword.value
-        }
-
-        fetch("http://localhost:5000/profile/forgot-password", {
+        fetch("http://localhost:5000/profile/send-code", {
             method: "POST",
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify({ email: inputEmail.value })
         })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    notification.open({
-                        "title": "Success!!",
-                        description: "You have successfully updated your password",
-                        icon: <MdDone />
-                    })
-
-                    e.target.reset();
-                } else {
-                    notification.open({
-                        "title": "Error!!",
-                        description: "There's an error on the server. Please update it later",
-                        icon: <MdError />
-                    })
+                    localStorage.setItem("otp", data.otp)
                 }
             })
+    })
 
-    }
+    const handleClickContinue = useCallback((e) => {
+        e.target.classList.add("d-none")
 
-    const handleSubmit = useCallback((e) => {
-        e.preventDefault();
+        const inputOtp = document.querySelector("form div[inputOtp]")
+        inputOtp.remove()
 
-        const inputMaXacNhan = e.target.querySelector("input[name='maXacNhan']")
-        const maXacNhan = document.querySelector("#maXacNhan")?.textContent
-        const form = e.target
+        const inputNewPassword = document.querySelector("form div[mxn-password]")
+        inputNewPassword.classList.remove("d-none")
+        const inputConfirmNewPassword = document.querySelector("form div[mxn-confirm-password]")
+        inputConfirmNewPassword.classList.remove("d-none")
 
-        if (inputMaXacNhan.value != maXacNhan) {
-            inputMaXacNhan.classList.add("alert-error");
-            api.open({
-                title: "Error!!",
-                description: "Verification code does not match!!",
-                icon: <MdError />
-            })
-            return;
-        }
-        const inputEmail = e.target.querySelector("input[name='email']")
-        form.classList.add("d-none")
-        const form2 = document.querySelector("#formChangePassword")
-        form2.classList.remove("d-none")
-        form2.querySelector("input[name='email']").value = inputEmail.value;
 
-    }, [])
-
-    useEffect(() => {
-        let char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
-        let maXacNhan = ``
-
-        for (let i = 0; i < 4; i++) {
-            maXacNhan += char[Math.round(Math.random() * char.length)]
-        }
-        const element = document.querySelector("#maXacNhan")
-        element.textContent = maXacNhan;
     })
 
     return (
         <>
             {contextHolder}
-            <div className="formChangePassword container-fluid text-align-start">
-                <div className="container h-screen d-flex items-center justify-center">
-                    
-                    <form className=" d-flex flex-column items-start justify-center bg-white gap-y-2 relative" onSubmit={handleSubmit}>
-                        <div className="d-flex flex-column">
-                            <label className="font-bold text-gray-600">Email</label>
-                            <input type="email" name="email" required ></input>
-                        </div>
+            <div className="forgotPassword container-fluid text-align-start d-flex justify-center items-center h-screen relative">
+                <div className="container d-flex justify-center items-center">
+                    <div className="forgotPassword__main bg-white d-flex flex-column">
+                        <h2 className="m-0 text-align-center py-3">Quên Mật Khẩu</h2>
+                        <p className="m-0 text-align-center font-14 font-bold text-gray-600">Vui Lòng Nhập Email Của Bạn Để Nhận Mã Xác Nhận</p>
 
-                        <div className="d-flex items-center justify-between">
-                            <div className="d-flex flex-column">
-                                <label className="font-bold text-gray-600">Mã Xác Nhận</label>
-                                <input type="text" name="maXacNhan"></input>
+                        <div className="py-2"></div>
+
+                        <form className="d-flex flex-column gap-y-4">
+                            <div className="d-flex flex-column items-start col-12 px-0 py-0 divInputMXN relative">
+                                <label className="font-bold text-gray-600">Email</label>
+                                <input type="email" name="email" placeholder="abc@gmail.com" className="col-12 px-2 py-1"></input>
                             </div>
-                            <p id='maXacNhan' className="px-2 m-0"></p>
-                        </div>
-                        <button type="submit">Gửi Mã Xác Nhận</button>
-                    </form>
+                            <div className="d-flex flex-column items-start col-12 px-0 py-0 divInputMXN relative" inputOtp="">
+                                <div className="d-flex items-center justify-between col-12 px-0 py-0">
+                                    <label className="font-bold text-gray-600">Mã Xác Nhận (OTP)</label>
+                                    <button className="font-bold bg-transparent border-none cursor-pointer text-blue-400 font-bold" onClick={handleSendCode} type="button">Gửi Mã</button>
+                                </div>
+                                <input type="text" name="maXacNhan" className="col-12 px-2 py-1"></input>
+                            </div>
 
-                    <form className="d-flex flex-column items-start justify-center bg-white d-none" id='formChangePassword' onSubmit={changePassWord} method="POST">
-                        <label>Email</label>
-                        <input type='email' name="email"></input>
+                            <div className="d-flex flex-column relative divInputMXN d-none" mxn-password="">
+                                <label className="font-bold text-gray-200">PassWord</label>
+                                <input type="password" minLength={8} placeholder="Please enter your password..." className="signIninput py-2 px-2 font-bold" name="passWord" required ></input>
+                            </div>
 
-                        <label>Enter New Password</label>
-                        <input type="password" name="newPassword"></input>
+                            <div className="d-flex flex-column relative divInputMXN d-none" mxn-confirm-password="">
+                                <label className="font-bold text-gray-200">Confirm Password</label>
+                                <input type="password" minLength={8} placeholder="Please enter confirm password..." className="signIninput py-2 px-2 font-bold" name="confirmpassWord" required ></input>
+                            </div>
 
-                        <label>Confirm New Password</label>
-                        <input type="password" name="confirmPassword"></input>
-
-                        <button type="submit">Đổi Mật Khẩu</button>
-                    </form>
+                            <button type="button" className="bg-blue text-white border-none py-2 rounded cursor-pointer" onClick={handleClickContinue} button-continue>Tiếp Tục</button>
+                            <button type="submit" className="bg-blue text-white border-none py-2 rounded cursor-pointer" onClick={handleClickContinue}>Xác Nhận</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </>
