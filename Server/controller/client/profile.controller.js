@@ -73,13 +73,13 @@ module.exports.sendCode = async (req, res) => {
     } catch (error) {
         console.log(error)
         return res.json({ success: false, message: error.message });
-
     }
-
 }
 module.exports.forgotPassword = async (req, res) => {
     const email = req.body.email;
     const newPassword = req.body.newPassword
+
+    console.log(email,newPassword)
 
     const user = await User.updateOne({ email: email }, { passWord: newPassword })
     return res.status(200).json({ success: true })
