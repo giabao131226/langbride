@@ -5,6 +5,7 @@ import Quiz from "../Component/Quiz/quiz";
 import Course from "../Component/Course/course";
 import EditProfile from "../Component/EditProfile/editprofile";
 import ForgotPassword from "../Component/ForgotPasword/forgotPassword";
+import ViewToDoList from "../Component/ViewToDoList/viewToDoList";
 
 const routes = [
     {
@@ -30,6 +31,10 @@ const routes = [
             {
                 path: "/forgot-password",
                 element: <ForgotPassword />
+            },
+            {
+                path: "/to-do-list",
+                element: <ViewToDoList />
             }
         ]
     }

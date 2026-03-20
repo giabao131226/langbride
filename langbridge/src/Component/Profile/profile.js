@@ -14,6 +14,7 @@ import { MdError } from "react-icons/md";
 
 
 import {Link} from "react-router-dom"
+import ViewToDoList from "../ViewToDoList/viewToDoList";
 function Profile({ closeProfile }) {
 
     const [account, setAccount] = useState({})
@@ -114,6 +115,12 @@ function Profile({ closeProfile }) {
             })
     })
 
+    // Hàm Link sang trang todolist
+    const handleLinkToToDoList = useCallback(() => {
+        window.location.href = "http://localhost:3000/to-do-list"
+    })
+    // 
+
     useEffect(() => {
         if (document.cookie) {
             console.log(JSON.parse(window.localStorage.getItem("user")))
@@ -180,9 +187,11 @@ function Profile({ closeProfile }) {
                         <p className="todo col-8 font-14 px-0 py-0 m-0">{item.conTent}</p>
                         <Button type="primary" className="px-2" onClick={() => { changeStatusTask(item._id) }}>Done</Button>
                     </div></>)}
-                    <Button type="primary">See All</Button>
+                    <Button type="primary" onClick={handleLinkToToDoList}>See All</Button>
                 </div>
             </div>
+
+            {/* Pop-Up thêm to-do-list */}
             <div className="modalTDL border-box">
                 <div className="container border-box px-4 py-3">
                     <div className="d-flex items-center justify-between">
@@ -205,6 +214,9 @@ function Profile({ closeProfile }) {
                     </form>
                 </div>
             </div>
+            {/* End pop-up thêm ToDoList */}
+
+            <ViewToDoList />          
         </>
     )
 }

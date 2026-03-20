@@ -5,9 +5,11 @@ const routes = require("./routes/client/index.route")
 const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+require("dotenv").config();
+
 // Database
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost:27017/langbridge')
+mongoose.connect(process.env.MONGO_URL)
 // 
 
 

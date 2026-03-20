@@ -61,6 +61,7 @@ function FormSignUp({ statusModalSignUp, setStatusModalSignUp }) {
                 } else {
                     const position = data.possition;
                     const inputError = document.querySelector(`input[name=${position}]`)
+                    console.log(inputError)
                     const dadInputError = inputError.closest(".divInputSignUp")
                     dadInputError.classList.add("error")
                     const elementAlertError = document.querySelector("#"+`${inputError.getAttribute("alert-error")}`)

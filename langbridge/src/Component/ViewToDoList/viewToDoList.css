@@ -1,0 +1,22 @@
+
+:root{
+    --bg-button-toDoList: #FE8132;
+}
+
+.bg-button-ToDoList{
+    background-color: var(--bg-button-toDoList);
+}
+.button-ToDoList{
+
+    transition: all ease 600ms;
+
+    cursor: pointer;
+}
+.button-ToDoList:hover{
+    margin-top: -5px;
+    margin-bottom: 5px;
+
+    border-bottom: 1px solid rgb(68, 62, 62);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+
+}
