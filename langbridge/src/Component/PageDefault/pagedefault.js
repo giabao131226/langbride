@@ -9,7 +9,8 @@ import { useCallback, useEffect, useState } from "react";
 function PageDefault(){
     const [statusProfile,setStatusProfile] = useState(document.cookie ? true : false)
     const [statusSignIn,setStatusSignIn] = useState(document.cookie ? true : false)
-    
+
+    const [reload,setReload] = useState(false)
 
     const openProfile = useCallback(() => {
         setStatusProfile(true)
@@ -31,10 +32,10 @@ function PageDefault(){
                 <div className="d-flex over-flow-hidden relative">
                     <SideBar setStatusSignIn = {setStatusSignIn} />
                     <div className="main">
-                        <Outlet context={{ statusSignIn, setStatusSignIn }}/>
+                        <Outlet context={{ statusSignIn, setStatusSignIn,reload,setReload }}/>
                     </div>
                     <button className = {`openProfile font-20 bg-white border-none px-0 py-0 relative cursor-pointer ${statusProfile === true ? "d-none" : ""}`} onClick={openProfile}><ImProfile / ></button>
-                    <SideBarRight statusProfile = {statusProfile} setStatusProfile = {setStatusProfile} statusSignIn = {statusSignIn} setStatusSignIn = {setStatusSignIn}/>
+                    <SideBarRight statusProfile = {statusProfile} setStatusProfile = {setStatusProfile} statusSignIn = {statusSignIn} setStatusSignIn = {setStatusSignIn} reload = {reload} setReload = {setReload}/>
                 </div >
             </div>
         </>

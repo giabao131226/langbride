@@ -54,6 +54,9 @@ table{
 .text-orange{
     color: orange;
 }
+.text-reddish-brown{
+    color: #A65434;
+}
 .flex-parent{
     width: 250px;
 	height: 250px;
@@ -97,6 +100,9 @@ table{
 }
 .bg-transparent{
     background-color: transparent;
+}
+.bg-soft-blush{
+    background-color: #FEF1E9;
 }
 .border-none{
     border: none;
@@ -286,4 +292,17 @@ table{
 }
 .overflow-hidden{
     overflow: hidden;
+}
+
+.border-blue{
+    border: blue;
+}
+.border-green{
+    border: green;
+}
+.border-red{
+    border: red;
+}
+.w-full{
+    width: 100%;
 }

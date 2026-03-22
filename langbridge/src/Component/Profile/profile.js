@@ -14,8 +14,9 @@ import { MdError } from "react-icons/md";
 
 
 import {Link} from "react-router-dom"
-import ViewToDoList from "../ViewToDoList/viewToDoList";
-function Profile({ closeProfile }) {
+
+function Profile({ setStatusProfile,closeProfile,reload,setReload }) {
+
 
     const [account, setAccount] = useState({})
 
@@ -25,8 +26,8 @@ function Profile({ closeProfile }) {
 
     const { RangePicker } = DatePicker
 
-    const [reload, setReload] = useState(false)
     const [toDoList, setToDoList] = useState([])
+
     const [rangeDate, setRangeDate] = useState(null)
 
     const items = [
@@ -78,13 +79,13 @@ function Profile({ closeProfile }) {
                     body: JSON.stringify(data)
                 })
                     .then(res => res.json())
-                    .then(data => {
+                    .then(duLieu => {
                         api.info({
                             title: "Congratulation!!",
                             description: "You have successfully added the task.",
                             icon: <MdOutlineDone />
                         })
-                        setReload(!reload)
+                        setReload(prev =>  !prev)
                     })
             } else {
                 api.info({
@@ -111,7 +112,7 @@ function Profile({ closeProfile }) {
                     description: "Great! You've just completed a task.",
                     icon: <MdOutlineDone />
                 })
-                setReload(!reload)
+                setReload(prev =>  !prev)
             })
     })
 
@@ -123,7 +124,6 @@ function Profile({ closeProfile }) {
 
     useEffect(() => {
         if (document.cookie) {
-            console.log(JSON.parse(window.localStorage.getItem("user")))
             setAccount(JSON.parse(window.localStorage.getItem("user")))
             const acc = JSON.parse(window.localStorage.getItem("user"))
             fetch(`http://localhost:5000/to-do-list/${acc._id}/${false}`)
@@ -132,8 +132,9 @@ function Profile({ closeProfile }) {
                     setToDoList(data)
                 })
         }
-    }, [document.cookie, reload])
+    }, [reload])
 
+    
     return (
         <>
             {contextHolder}
@@ -214,9 +215,7 @@ function Profile({ closeProfile }) {
                     </form>
                 </div>
             </div>
-            {/* End pop-up thêm ToDoList */}
-
-            <ViewToDoList />          
+            {/* End pop-up thêm ToDoList */}    
         </>
     )
 }

@@ -1,22 +1,144 @@
-
-:root{
+:root {
     --bg-button-toDoList: #FE8132;
 }
 
-.bg-button-ToDoList{
+.viewToDoList{
+    background-color: #FEF1E9;
+    height: 100vh;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.viewToDoListMain{
+    height: 85vh;
+}
+
+.bg-button-ToDoList {
     background-color: var(--bg-button-toDoList);
 }
-.button-ToDoList{
+
+.button-ToDoList {
 
     transition: all ease 600ms;
 
     cursor: pointer;
 }
-.button-ToDoList:hover{
+
+.button-ToDoList:hover {
     margin-top: -5px;
     margin-bottom: 5px;
 
     border-bottom: 1px solid rgb(68, 62, 62);
     box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+}
 
+
+
+/* Task */
+
+.text__progress{
+    top: calc(50% - (34.67px / 2));
+}
+
+.task {
+    border-radius: 50px;
+    border-left: 6px solid green;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.taskAttribute {
+    background-color: #FFDDC4;
+    border: 2px solid #CFB6A1;
+
+    width: 30px;
+    height: 30px;
+}
+
+.listTask{
+    height: 400px;
+    padding-left: 10px;
+    padding-right: 10px;
+    overflow-y: auto;
+}
+
+/*  */
+
+.circle__progress{
+    width: 150px;
+    rotate: calc(-90deg);
+}
+circle {
+  fill: none;
+  stroke-width: 10;
+}
+
+.bg {
+  stroke: #eee;
+}
+
+.progress-circle {
+    stroke: #1e5bb8;
+    stroke-linecap: round;
+
+    stroke-dasharray: 408;
+    stroke-dashoffset: calc(408 - (408 * 68) / 100);
+    transition: 0.5s;
+}
+.quantityTask{
+    background-color: #FEEDE5;
+    border-radius: 20px;
+    border-left: 4px solid blue;
+    padding: 10px;
+}
+.masteryProgress{
+    position: relative;
+    background-color: #FEF4F2;
+    padding: 30px;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    overflow: hidden;
+}
+
+.masteryProgress::before{
+    content: "";
+    display: block;
+
+    width: 150px;
+    height: 150px;
+
+    background-color: #F1EBEB;
+
+    border-radius: 50%;
+
+    position: absolute;
+    top: -80px;
+    right: -75px;
+}
+.masteryProgress::after{
+    content: "";
+    display: block;
+
+    width: 150px;
+    height: 150px;
+
+    background-color: #F1EBEB;
+
+    border-radius: 50%;
+
+    position: absolute;
+    bottom: -80px;
+    left: -75px;
+}
+
+.masteryProgressBox{
+    background-color: #FFDDC4;
+    padding: 20px;
+    border-radius: 30px;
+    width: 140px;
+
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

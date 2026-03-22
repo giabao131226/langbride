@@ -9,7 +9,7 @@ import "./sidebarright.css"
 // Image
 
 
-function SideBarRight({ statusProfile, setStatusProfile, statusSignIn, setStatusSignIn }) {
+function SideBarRight({ statusProfile, setStatusProfile, statusSignIn, reload,setReload }) {
 
     const closeProfile = useCallback(() => {
         setStatusProfile(false);
@@ -30,6 +30,8 @@ function SideBarRight({ statusProfile, setStatusProfile, statusSignIn, setStatus
                         <Profile
                             setStatusProfile={setStatusProfile}
                             closeProfile={closeProfile}
+                            reload = {reload}
+                            setReload = {setReload}
                         />
                     </div>
                 </div>

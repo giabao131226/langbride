@@ -30,14 +30,12 @@ module.exports.addTask = async (req,res) => {
     // const onwerID = req.params.ownerID;
     // const id = req.params.id;
 
-    console.log(req.body)
-
     try{
-        await TodoList.create(req.body)
-
+        const data = await TodoList.create(req.body)
         res.status(201).json({
             success: true,
-            message: "Complete Add Task"
+            message: "Complete Add Task",
+            data: data
         })
     }catch(error){
         res.status(500).json({
