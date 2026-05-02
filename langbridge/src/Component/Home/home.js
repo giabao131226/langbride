@@ -35,22 +35,14 @@ function Home() {
             const textMain = document.querySelector(".slick-active .slide .text-main")
             const textMainBelow = document.querySelector(".slick-active .slide .text-main-below")
             if (textMain && textMainBelow) {
-                textMain.classList.add("open")
-                textMainBelow.classList.add("open")
-
-                const interval2 = setInterval(() => {
-                    textMain.classList.toggle("open")
-                    textMainBelow.classList.toggle("open")
-                }, 4000)
-
-                return () => clearInterval(interval2)
+                textMain.classList.toggle("open")
+                textMainBelow.classList.toggle("open")
             }
-        }, [2000])
+        }, 3000)
     }, [])
     return (
         <>
             <div className="container px-4 py-3">
-
                 <div className="d-flex justify-between items-center gap-x-3">
                     <div className="bg-white d-flex items-center py-3 px-2 gap-x-2 rounded-lg font-20 homeSearch">
                         <FaSearch></FaSearch>
@@ -67,7 +59,7 @@ function Home() {
                     </div>}
                 </div>
                 <div className="py-2">
-                    <Carousel arrows autoplay autoplaySpeed={8000}>
+                    <Carousel arrows autoplay autoplaySpeed={6000}>
                         <div className="slide">
                             <div className="slide-container">
                                 <p className="text-main font-bold text-black m-0 text-align-center font-20">Welcome to LangBridge</p>
@@ -95,6 +87,7 @@ function Home() {
                     </Carousel>
                 </div>
             </div>
+
             {/* Modal SignIn */}
             <FormSignIn statusModalSignIn={statusModalSignIn} setStatusModalSignIn={setStatusModalSignIn} setStatusSignIn={setStatusSignIn} />
             {/* End ModalSignIn */}

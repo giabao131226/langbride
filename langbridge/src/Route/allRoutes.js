@@ -6,6 +6,12 @@ import Course from "../Component/Course/course";
 import EditProfile from "../Component/EditProfile/editprofile";
 import ForgotPassword from "../Component/ForgotPasword/forgotPassword";
 import ViewToDoList from "../Component/ViewToDoList/viewToDoList";
+import Test from "../Component/LamBaiThi/test";
+import Result from "../Component/Result/result";
+import LayoutDefaultAdmin from "../Component/admin/Home/home.admin";
+import QuanLyTaiKhoan from "../Component/admin/QuanLyTaiKhoan/quanlytaikhoan";
+import LayoutProtected from "../Component/admin/LayoutProtected/layoutprotected";
+import SignInAdmin from "../Component/admin/signIn/sign-in";
 
 const routes = [
     {
@@ -15,10 +21,6 @@ const routes = [
             {
                 path: "/",
                 element: <Home />,
-            },
-            {
-                path: "/quiz",
-                element: <Quiz />,
             },
             {
                 path: "/course",
@@ -37,6 +39,30 @@ const routes = [
                 element: <ViewToDoList />
             }
         ]
+    },
+    {
+        path: "/quiz",
+        element: <Test />,
+        children: [
+            {
+                path: "result",
+                element: <Result />,
+            }
+        ]
+    },
+    {
+        path: "/admin",
+        element: <LayoutDefaultAdmin />,
+        children: [
+            {
+                path: "quan-ly-tai-khoan",
+                element: <QuanLyTaiKhoan />
+            }
+        ]
+    },
+    {
+        path: "/admin/sign-in",
+        element: <SignInAdmin />
     }
 ]
 export default routes;

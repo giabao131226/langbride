@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import logo from '../../assets/img/LoGoLangBridge.png'
 import { FaHome } from "react-icons/fa";
 import { MdQuiz } from "react-icons/md";
@@ -11,6 +11,7 @@ import './sidebar.css'
 import { useCallback } from 'react';
 
 function SideBar({setStatusSignIn}) {
+
     const logOutAccount = useCallback(() => {
         const account = localStorage.getItem("user")
         if(account){
@@ -19,6 +20,12 @@ function SideBar({setStatusSignIn}) {
             setStatusSignIn(false)
         }
     })
+
+    function handleHighLight(e){
+        const element = document.querySelectorAll("li.nav-active");
+        element.forEach((item) => item.classList.remove("nav-active"));
+        e.target.classList.add("nav-active");
+    }
 
     return (
         <>
@@ -29,11 +36,11 @@ function SideBar({setStatusSignIn}) {
                         <div className='px-4'>
                             <p className='text-gray-200 font-bold m-0  py-2'>OVERVIEW</p>
                             <ul className='sideBarTool list-style-type-none m-0 px-3 d-flex flex-column gap-y-2'>
-                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaHome /> Home</li></Link>
-                                <Link to={"quiz"} className='text-decoration-none '><li className='text-black font-bold'><MdQuiz /> Quiz</li></Link>
-                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><MdPlayLesson /> Lesson</li></Link>
-                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><FaTasks /> Task</li></Link>
-                                <Link to={"/course"} className='text-decoration-none '><li className='text-black font-bold'><FaChalkboardTeacher /> Course</li></Link>
+                                <Link to={"/"} className='text-decoration-none'><li className='text-black font-bold nav-active' onClick={handleHighLight}><FaHome /> Home</li></Link>
+                                <Link to={"quiz"} className='text-decoration-none '><li className='text-black font-bold' onClick={handleHighLight}><MdQuiz /> Quiz</li></Link>
+                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold' onClick={handleHighLight}><MdPlayLesson /> Lesson</li></Link>
+                                <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold' onClick={handleHighLight}><FaTasks /> Task</li></Link>
+                                <Link to={"/course"} className='text-decoration-none '><li className='text-black font-bold' onClick={handleHighLight}><FaChalkboardTeacher /> Course</li></Link>
                             </ul>
                         </div>
                         <div>

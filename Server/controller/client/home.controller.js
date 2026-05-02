@@ -1,11 +1,9 @@
 
-
 const Users = require('../../models/user.model')
 const validate = require('../../helper/validate.helper')
 
 
 module.exports.home = async (req, res) => {
-
     const user = await Users.find({})
     res.json(user);
 

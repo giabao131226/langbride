@@ -36,6 +36,19 @@
 
 /* Task */
 
+.progress-bar{
+  width:260px;
+  height:8px;
+  background:#ddd;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+.progress{
+  height:100%;
+  border-radius:10px;
+}
+
 .text__progress{
     top: calc(50% - (34.67px / 2));
 }
@@ -62,11 +75,13 @@
 }
 
 /*  */
-
 .circle__progress{
     width: 150px;
-    rotate: calc(-90deg);
+    height: 150px;
+    transform: rotate(-90deg);
+    display: block;
 }
+
 circle {
   fill: none;
   stroke-width: 10;
@@ -79,7 +94,6 @@ circle {
 .progress-circle {
     stroke: #1e5bb8;
     stroke-linecap: round;
-
     stroke-dasharray: 408;
     stroke-dashoffset: calc(408 - (408 * 68) / 100);
     transition: 0.5s;

@@ -5,19 +5,20 @@ import { SiTask } from "react-icons/si";
 import { MdOutlineDone } from "react-icons/md";
 import { FaTasks } from "react-icons/fa";
 import { IoFlash } from "react-icons/io5";
-
 import { DatePicker, notification } from 'antd';
 import { useCallback, useEffect, useState } from "react";
 import { MdError } from "react-icons/md";
 import { MdDone } from "react-icons/md";
 import { useOutletContext } from "react-router-dom";
+import { IoClose } from "react-icons/io5";
+
 
 
 const { RangePicker } = DatePicker;
 
 function ViewToDoList() {
 
-    const {reload,setReload} = useOutletContext()
+    const { reload, setReload } = useOutletContext()
 
     // Notification antd
     const [api, contextHolder] = notification.useNotification();
@@ -57,7 +58,7 @@ function ViewToDoList() {
                             description: "You have successfully added the task.",
                             icon: <MdOutlineDone />
                         })
-                        setReload(prev =>  !prev)
+                        setReload(prev => !prev)
 
                     })
             } else {
@@ -79,7 +80,7 @@ function ViewToDoList() {
                     setToDoList(data)
                 })
         }
-    },[reload])
+    }, [reload])
 
     return (
         <>
@@ -153,9 +154,10 @@ function ViewToDoList() {
                                 </div>
 
                                 <div className="listTask d-flex flex-column gap-y-2">
-                                    {toDoList.map((item) => <div className="task d-flex items-center justify-between bg-white px-4 py-2">
+                                    {toDoList.map((item, index) => <div key={index} className="task d-flex items-center justify-between bg-white px-4 py-2">
                                         <div className="col-8 px-2 py-2 d-flex items-center gap-x-3">
                                             <div className="d-flex items-center gap-x-3">
+
                                                 <div className="bg-coral rounded-50 d-flex items-center justify-center font-20" style={{ width: "40px", height: "40px" }}>
                                                     <SiTask />
                                                 </div>
@@ -170,9 +172,15 @@ function ViewToDoList() {
                                             </div>
                                         </div>
 
-                                        <div className="taskAttribute rounded-50 d-flex items-center justify-center">
-                                            <p className="text-white m-0 font-20">{item.status == false ? <MdDone /> : <MdError />}</p>
+                                        <div className="d-flex items-center gap-x-2">
+                                            <div className="taskAttribute rounded-50 d-flex items-center justify-center cursor-pointer">
+                                                <p className="text-white m-0 font-20" style={{height: "20px"}}><IoClose /></p>
+                                            </div>
+                                            <div className="taskAttribute rounded-50 d-flex items-center justify-center cursor-pointer">
+                                                <p className="text-white m-0 font-20" style={{height: "20px"}}>{item.status == false ? <MdDone /> : <MdError />}</p>
+                                            </div>
                                         </div>
+                                        
                                     </div>)}
 
                                 </div>

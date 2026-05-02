@@ -1,0 +1,25 @@
+
+.pagination{
+    padding: 15px;
+}
+.pagination button{
+    background-color: white;
+    border: 1px solid black;
+    padding: 4px 8px;
+    cursor: pointer;
+}
+.pagination button.active{
+    background-color: rgb(47, 139, 47);
+    color: white;
+}
+.pagination button:hover{
+    background-color: rgb(47, 139, 47);
+    color: white;
+}
+
+.listTaiKhoan{
+    max-height: 320px;
+}
+.listTaiKhoan tr{
+    height: 50px!important;
+}

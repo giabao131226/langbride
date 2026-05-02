@@ -8,6 +8,7 @@
     box-sizing: border-box;
     min-width: 13vw;
     width: 13vw;
+    z-index: 1;
 }
 .sideBarNav{
     height: calc(100vh - 130px);
@@ -29,4 +30,16 @@
 }
 .sideBarTool li:hover::after{
     transform: scaleX(1);
+}
+
+.nav-active{
+    color: rgb(78, 78, 238);
+}
+.nav-active::after{
+    content: "";
+    display: block;
+    background-color: rgb(78, 78, 238);
+    height: 3px;
+    border-radius: 10px;
+    transform: scaleX(1)!important;
 }

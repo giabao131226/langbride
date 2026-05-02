@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     phone: String,
     token: String,
     avatar: String,
+    status: String,
 })
 
 const Users = mongoose.model('Users',userSchema,'users')
