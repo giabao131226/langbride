@@ -35,3 +35,7 @@
 .nav-item-admin:hover::after{
     transform: scaleX(1);
 }
+
+.nav-item-admin.active::after{
+    transform: scaleX(1);
+}

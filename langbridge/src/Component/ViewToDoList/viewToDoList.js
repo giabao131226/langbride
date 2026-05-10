@@ -5,12 +5,14 @@ import { SiTask } from "react-icons/si";
 import { MdOutlineDone } from "react-icons/md";
 import { FaTasks } from "react-icons/fa";
 import { IoFlash } from "react-icons/io5";
-import { DatePicker, notification } from 'antd';
+import { DatePicker, message, notification } from 'antd';
 import { useCallback, useEffect, useState } from "react";
 import { MdError } from "react-icons/md";
 import { MdDone } from "react-icons/md";
 import { useOutletContext } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
+import { FaTrashAlt } from "react-icons/fa";
+
 
 
 
@@ -38,7 +40,7 @@ function ViewToDoList() {
             if (content?.trim()) {
                 const data = {
                     ownerID: acc._id,
-                    status: false,
+                    status: "pending",
                     conTent: content,
                     dateStart: rangeDate[0],
                     dateEnd: rangeDate[1]
@@ -71,12 +73,58 @@ function ViewToDoList() {
         }
     })
 
+    function handleChangeStatus(id){
+        fetch(`http://localhost:5000/to-do-list/change-status/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-type": "application/json"
+            }, body: JSON.stringify({ status: "complete" })
+        })
+            .then(res => res.json())
+            .then(data => {
+                api.info({
+                    title: "Congratulation!!",
+                    description: "Great! You've just completed a task.",
+                    icon: <MdOutlineDone />
+                })
+                setReload(prev =>  !prev)
+            })
+    }
+    function getStatus(status,dateEnd){
+        const now = new Date();
+        const date = new Date(dateEnd);
+        if(date < now) return "border-timeOut";
+
+        if(status == "pending") return "border-pending";
+        return "border-done";
+    }
+
+    function handleRemoveItem(id){
+        console.log(id);
+        fetch(`http://localhost:5000/to-do-list/remove/${id}?_method=PATCH`,{
+            method: "POST"
+        })
+            .then(res => res.json())
+            .then(data => {
+                if(data.success){
+                    api.info({
+                        "title": "Deleted Successfully",
+                        description: "The todo has been removed successfully."
+                    })
+                    setReload(prev => !prev)
+                }
+            })
+    }
+
     useEffect(() => {
+    
         if (document.cookie) {
-            const acc = JSON.parse(window.localStorage.getItem("user"))
-            fetch(`http://localhost:5000/to-do-list/${acc._id}/${false}`)
+            const acc = JSON.parse(window.localStorage.getItem("user"));
+            console.log(acc);
+            fetch(`http://localhost:5000/to-do-list/${acc.id}/all`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data);
                     setToDoList(data)
                 })
         }
@@ -154,7 +202,7 @@ function ViewToDoList() {
                                 </div>
 
                                 <div className="listTask d-flex flex-column gap-y-2">
-                                    {toDoList.map((item, index) => <div key={index} className="task d-flex items-center justify-between bg-white px-4 py-2">
+                                    {toDoList.map((item, index) => <div key={index} className={"task d-flex items-center justify-between bg-white px-4 py-2 " + getStatus(item.status,item.dateEnd)}>
                                         <div className="col-8 px-2 py-2 d-flex items-center gap-x-3">
                                             <div className="d-flex items-center gap-x-3">
 
@@ -173,11 +221,11 @@ function ViewToDoList() {
                                         </div>
 
                                         <div className="d-flex items-center gap-x-2">
-                                            <div className="taskAttribute rounded-50 d-flex items-center justify-center cursor-pointer">
-                                                <p className="text-white m-0 font-20" style={{height: "20px"}}><IoClose /></p>
+                                            <div className="taskAttribute rounded-50 d-flex items-center justify-center cursor-pointer" onClick={() => {handleRemoveItem(item._id)}}>
+                                                <p className="text-white m-0 font-20" style={{height: "20px"}} ><FaTrashAlt /></p>
                                             </div>
-                                            <div className="taskAttribute rounded-50 d-flex items-center justify-center cursor-pointer">
-                                                <p className="text-white m-0 font-20" style={{height: "20px"}}>{item.status == false ? <MdDone /> : <MdError />}</p>
+                                            <div className="taskAttribute rounded-50 d-flex items-center justify-center cursor-pointer" onClick={() => {handleChangeStatus(item._id)}}>
+                                                <p className="text-white m-0 font-20" style={{height: "20px"}}><MdDone /></p>
                                             </div>
                                         </div>
                                         

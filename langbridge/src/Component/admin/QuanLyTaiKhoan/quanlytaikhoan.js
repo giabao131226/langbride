@@ -102,7 +102,7 @@ export default function QuanLyTaiKhoan() {
             <div className="container-fluid text-align-start px-3">
                 <div className="container">
                     <div className="d-flex items-center justify-between py-2">
-                        <span>Quản Lý Tài Khoản</span>
+                        <span className="font-bold font-20">Quản Lý Tài Khoản</span>
                         <Link><button className="bg-blue font-bold text-white px-2 py-2 rounded cursor-pointer">Thêm mới</button></Link>
                     </div>
 

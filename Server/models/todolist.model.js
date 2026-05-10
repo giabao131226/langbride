@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const toDoListSchema = mongoose.Schema({
     ownerID: String,
-    status: Boolean,
+    status: String,
     conTent: String,
     dateStart: String,
     dateEnd: String

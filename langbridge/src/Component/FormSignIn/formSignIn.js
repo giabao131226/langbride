@@ -8,7 +8,9 @@ import { Modal, message } from 'antd'
 import { IoPerson } from "react-icons/io5";
 import { FaLock } from "react-icons/fa";
 // Image
-import smileGirl from '../../assets/img/ImgSignIn.png'
+import smileGirl from '../../assets/img/ImgSignIn.png';
+
+import {jwtDecode} from "jwt-decode";
 
 function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }) {
     const [accountSignIn, setAccountSignIn] = useState({})
@@ -34,8 +36,10 @@ function FormSignIn({ statusModalSignIn, setStatusModalSignIn, setStatusSignIn }
                         type: "success",
                         content: "Congratulations!! You have successfully logged in."
                     })
-                    window.localStorage.setItem("user", JSON.stringify(data.user))
-                    document.cookie = `token=${data.user}`
+                    const decode = jwtDecode(data.token);
+                    console.log(decode);
+                    window.localStorage.setItem("user", JSON.stringify(decode));
+                    document.cookie = `token=${data.token}`
                     const form = document.querySelector("#sign-in-form")
                     form.reset();
                     setStatusModalSignIn(false)

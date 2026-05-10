@@ -13,7 +13,7 @@ export default function Sider(){
                 </div>
 
                 <nav className="d-flex flex-column">
-                    <Link to = {"/admin/quan-ly-tai-khoan"} className="text-decoration-none nav-item-admin relative"> <span className="font-bold font-14 text-white cursor-pointer">Tài Khoản</span></Link>
+                    <Link to = {"/admin/quan-ly-tai-khoan"} className={"text-decoration-none nav-item-admin relative " + (window.location.pathname.includes("/admin/quan-ly-tai-khoan") ? "active" : "")}> <span className="font-bold font-14 text-white cursor-pointer">Tài Khoản</span></Link>
                     <Link to = {"/"} className="text-decoration-none nav-item-admin relative"> <span className="font-bold font-14 text-white cursor-pointer">Bài Đăng</span></Link>
                     <Link to = {"/"} className="text-decoration-none nav-item-admin relative"> <span className="font-bold font-14 text-white cursor-pointer">Bài Kiểm Tra</span></Link>
                 </nav>

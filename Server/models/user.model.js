@@ -7,6 +7,14 @@ const userSchema = mongoose.Schema({
     token: String,
     avatar: String,
     status: String,
+    level: {
+        "default": "Beginner",
+        "type": String
+    },
+    nation: {
+        "default": "VietNam",
+        "type": String
+    }
 })
 
 const Users = mongoose.model('Users',userSchema,'users')

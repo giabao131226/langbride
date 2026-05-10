@@ -53,9 +53,18 @@
     top: calc(50% - (34.67px / 2));
 }
 
+.border-done{
+    border-left: 6px solid blue;
+}
+.border-pending{
+    border-left: 6px solid green;
+}
+.border-timeOut{
+    border-left: 6px solid red;
+}
+
 .task {
     border-radius: 50px;
-    border-left: 6px solid green;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 

@@ -12,6 +12,7 @@ import LayoutDefaultAdmin from "../Component/admin/Home/home.admin";
 import QuanLyTaiKhoan from "../Component/admin/QuanLyTaiKhoan/quanlytaikhoan";
 import LayoutProtected from "../Component/admin/LayoutProtected/layoutprotected";
 import SignInAdmin from "../Component/admin/signIn/sign-in";
+import QuizDashBoard from "../Component/QuizDashBoard/quizDashBoard";
 
 const routes = [
     {
@@ -37,17 +38,17 @@ const routes = [
             {
                 path: "/to-do-list",
                 element: <ViewToDoList />
-            }
+            },
+            {
+                path: "/quiz",
+                element: <QuizDashBoard />,
+                children: [
+                    {
+                    path: "result",
+                    element: <Result />,
+                 }
         ]
     },
-    {
-        path: "/quiz",
-        element: <Test />,
-        children: [
-            {
-                path: "result",
-                element: <Result />,
-            }
         ]
     },
     {

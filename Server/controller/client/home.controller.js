@@ -1,7 +1,7 @@
 
 const Users = require('../../models/user.model')
 const validate = require('../../helper/validate.helper')
-
+const jwt = require("jsonwebtoken");
 
 module.exports.home = async (req, res) => {
     const user = await Users.find({})
@@ -98,14 +98,16 @@ module.exports.signIn = async (req, res) => {
             })
         }
 
-        const user = await Users.findOne({ userName: account.userName, passWord: account.passWord })
+        const user = await Users.findOne({ userName: account.userName, passWord: account.passWord });
+        const token = jwt.sign({"userName": user.userName,"email": user.email,"phone": user.phone,"status": user.status,"avatar": user.avatar,"id": user._id},"daylachiakhoa",{expiresIn:"24h"});
+        console.log(token);
         if (!user) {
             return res.json({
                 success: false,
                 message: "Incorrect account or password!!"
             })
         }
-        return res.status(200).json({success: true,user: user})
+        return res.status(200).json({success: true,token: token})
 
     } catch (error) {
         console.log(error)

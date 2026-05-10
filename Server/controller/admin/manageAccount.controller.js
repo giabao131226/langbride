@@ -11,7 +11,7 @@ module.exports.getAccounts = async (req, res) => {
     if (status != undefined && status != "") find.status = status;
     if (textSearch && textSearch !== "") {
         find.$or = [
-            { name: { $regex: textSearch, $options: "i" } },
+            { userName: { $regex: textSearch, $options: "i" } },
             { email: { $regex: textSearch, $options: "i" } },
             { phone: { $regex: textSearch, $options: "i" } }
         ];
@@ -23,7 +23,7 @@ module.exports.getAccounts = async (req, res) => {
     }
     try {
         const count = await User.countDocuments(find);
-        const numberPages = Math.ceil(count / 4);
+        const numberPages = Math.ceil(count / 10);
         let firstPage;
         let lastPage;
         if(numberPages <=5){
@@ -43,7 +43,7 @@ module.exports.getAccounts = async (req, res) => {
             }
         }
         console.log(`First Page là ${firstPage} và Last Page là ${lastPage}`);
-        const listAccount = await User.find(find).skip((page - 1) * 4).limit(4);
+        const listAccount = await User.find(find).skip((page - 1) * 10).limit(10);
 
         return res.json({ "success": true, listAccount: listAccount, pageInfo: {
             pageCurrent: page,

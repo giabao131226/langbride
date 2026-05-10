@@ -16,8 +16,6 @@ import { MdError } from "react-icons/md";
 import {Link} from "react-router-dom"
 
 function Profile({ setStatusProfile,closeProfile,reload,setReload }) {
-
-
     const [account, setAccount] = useState({})
 
     // Notification antd
@@ -64,8 +62,8 @@ function Profile({ setStatusProfile,closeProfile,reload,setReload }) {
 
             if (content?.trim()) {
                 const data = {
-                    ownerID: acc._id,
-                    status: false,
+                    ownerID: acc.id,
+                    status: "pending",
                     conTent: content,
                     dateStart: rangeDate[0],
                     dateEnd: rangeDate[1]
@@ -98,12 +96,12 @@ function Profile({ setStatusProfile,closeProfile,reload,setReload }) {
     })
 
     const changeStatusTask = useCallback((id) => {
-
+        console.log(id);
         fetch(`http://localhost:5000/to-do-list/change-status/${id}`, {
             method: "PATCH",
             headers: {
                 "Content-type": "application/json"
-            }, body: JSON.stringify({ status: true })
+            }, body: JSON.stringify({ status: "complete" })
         })
             .then(res => res.json())
             .then(data => {
@@ -126,7 +124,7 @@ function Profile({ setStatusProfile,closeProfile,reload,setReload }) {
         if (document.cookie) {
             setAccount(JSON.parse(window.localStorage.getItem("user")))
             const acc = JSON.parse(window.localStorage.getItem("user"))
-            fetch(`http://localhost:5000/to-do-list/${acc._id}/${false}`)
+            fetch(`http://localhost:5000/to-do-list/${acc.id}/${"pending"}`)
                 .then(res => res.json())
                 .then(data => {
                     setToDoList(data)
@@ -134,7 +132,6 @@ function Profile({ setStatusProfile,closeProfile,reload,setReload }) {
         }
     }, [reload])
 
-    
     return (
         <>
             {contextHolder}
@@ -184,7 +181,7 @@ function Profile({ setStatusProfile,closeProfile,reload,setReload }) {
                     <button className="bg-white border-none font-20 px-0 py-0 cursor-pointer" onClick={clickToModalToDoList}><IoIosAddCircleOutline /></button>
                 </div>
                 <div className="todolist col-12 px-0 py-0 d-flex flex-column">
-                    {toDoList.map((item) => <><div className="rows items-center gap-x-3 py-2">
+                    {toDoList.map((item,index) => <><div key = {index} className="rows items-center gap-x-3 py-2">
                         <p className="todo col-8 font-14 px-0 py-0 m-0">{item.conTent}</p>
                         <Button type="primary" className="px-2" onClick={() => { changeStatusTask(item._id) }}>Done</Button>
                     </div></>)}
