@@ -2,7 +2,16 @@
 import { Editor } from "@tinymce/tinymce-react";
 
 export default function DangTai({ acc, handlePostBaiDang, handleChange, images, showImage, handleRemoveImage,dataUpToServer,setDataUpToServer }) {
-    console.log(images);
+
+    function handleChangeTag(e,tag){
+        const composeTagSelected = document.querySelectorAll(".compose-tags .selected");
+        composeTagSelected.forEach((item) => {
+            item.classList.remove("selected");
+        })
+        e.target.classList.add("selected");
+        setDataUpToServer({...dataUpToServer,"tag": tag});
+    }
+    
     return (
         <>
             <form id="form-post" className="compose-card" onSubmit={handlePostBaiDang}
@@ -14,16 +23,8 @@ export default function DangTai({ acc, handlePostBaiDang, handleChange, images, 
                         alt="Me"
                     />
 
-                    {/* <textarea
-                        name="conTent"
-                        className="compose-textarea"
-                        placeholder="Share a tip, ask a question, or celebrate a milestone… 🎉"
-                        onChange={handleChange}
-                    ></textarea> */}
-
                     <Editor
                         onEditorChange={(content) => {
-                            console.log(content);
                             setDataUpToServer({...dataUpToServer,"conTent": content})
                         }}
                         name="conTent"
@@ -57,12 +58,12 @@ export default function DangTai({ acc, handlePostBaiDang, handleChange, images, 
                 </div>
 
                 <div className="compose-tags">
-                    <span className="compose-tag selected">❓ Question</span>
-                    <span className="compose-tag">💡 Tip</span>
-                    <span className="compose-tag">🎉 Milestone</span>
-                    <span className="compose-tag">📝 Vocabulary</span>
-                    <span className="compose-tag">🎙️ Speaking</span>
-                    <span className="compose-tag">📖 Resource</span>
+                    <span className="compose-tag compose-tag-question selected" onClick={(e) => {handleChangeTag(e,"question")}}>❓ Question</span>
+                    <span className="compose-tag compose-tag-tip" onClick={(e) => {handleChangeTag(e,"tip")}}>💡 Tip</span>
+                    <span className="compose-tag compose-tag-milestone" onClick={(e) => {handleChangeTag(e,"milstone")}}>🎉 Milestone</span>
+                    <span className="compose-tag compose-tag-vocabulary" onClick={(e) => {handleChangeTag(e,"vocabulary")}}>📝 Vocabulary</span>
+                    <span className="compose-tag compose-tag-speech" onClick={(e) => {handleChangeTag(e,"speaking")}}>🎙️ Speaking</span>
+                    <span className="compose-tag compose-tag-resource" onClick={(e) => {handleChangeTag(e,"resource")}}>📖 Resource</span>
                 </div>
 
                 <div className="compose-images">

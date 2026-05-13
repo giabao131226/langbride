@@ -13,6 +13,12 @@ import QuanLyTaiKhoan from "../Component/admin/QuanLyTaiKhoan/quanlytaikhoan";
 import LayoutProtected from "../Component/admin/LayoutProtected/layoutprotected";
 import SignInAdmin from "../Component/admin/signIn/sign-in";
 import QuizDashBoard from "../Component/QuizDashBoard/quizDashBoard";
+import QuanLyBaiDang from "../Component/admin/QuanLyBaiDang/quan-ly-bai-dang";
+import KiemDuyet from "../Component/admin/QuanLyBaiDang/KiemDuyet/kiem-duyet";
+import CreateBaiTest from "../Component/admin/BaiKiemTra/create/create-bai-test";
+import QuanLyBaiKiemTr from "../Component/admin/BaiKiemTra/QuanTri/quan-ly-bai-kiem-tra";
+import QuanLyBaiKiemTra from "../Component/admin/BaiKiemTra/QuanTri/quan-ly-bai-kiem-tra";
+import XemChiTiet from "../Component/admin/QuanLyTaiKhoan/XemChiTiet/xem-chi-tiet";
 
 const routes = [
     {
@@ -44,11 +50,11 @@ const routes = [
                 element: <QuizDashBoard />,
                 children: [
                     {
-                    path: "result",
-                    element: <Result />,
-                 }
-        ]
-    },
+                        path: "result",
+                        element: <Result />,
+                    }
+                ]
+            },
         ]
     },
     {
@@ -57,7 +63,40 @@ const routes = [
         children: [
             {
                 path: "quan-ly-tai-khoan",
-                element: <QuanLyTaiKhoan />
+                children: [
+                    {
+                        path: "",
+                        element: <QuanLyTaiKhoan />,
+                    },
+                    {
+                        path: "account/:id",
+                        element: <XemChiTiet />
+                    }
+                ]
+            },
+            {
+                path: "quan-ly-bai-dang",
+                element: <QuanLyBaiDang />,
+                children: [
+                    {
+                        "path": "kiem-duyet",
+                        element: <KiemDuyet />
+                    },
+
+                ]
+            },
+            {
+                "path": "quan-ly-bai-kiem-tra",
+                children: [
+                    {
+                        path: "",
+                        "element": <QuanLyBaiKiemTra />,
+                    },
+                    {
+                        path: "create",
+                        element: <CreateBaiTest />
+                    }
+                ]
             }
         ]
     },

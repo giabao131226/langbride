@@ -4,5 +4,6 @@ const controller = require("../../controller/admin/manageAccount.controller");
 
 router.get("/",controller.getAccounts);
 router.patch("/change-status/:id/:status",controller.changeStatus);
+router.get("/account/:id",controller.getAccount);
 
 module.exports = router;

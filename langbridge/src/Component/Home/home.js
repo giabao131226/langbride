@@ -16,6 +16,8 @@ import {
 import PostCard from "../PostCard/post-card";
 import Feed from "../Feed/feed";
 import DangTai from "../DangTai/dang-tai";
+import banner from "../../assets/img/Gemini_Generated_Image_w2ykbgw2ykbgw2yk.png";
+
 
 
 
@@ -52,6 +54,7 @@ function Home() {
         if (file) {
             setImages([...images, file]);
         }
+        e.target.value = null;
     }
 
     function handlePostBaiDang(e) {
@@ -64,10 +67,11 @@ function Home() {
             }`;
         
         const formData = new FormData();
-        formData.append("conTent", dataUpToServer.conTent);
+        formData.append("conTent", (dataUpToServer.conTent != undefined ? dataUpToServer.conTent : ""));
         formData.append("IDAccount", acc.id);
         formData.append("createAt", date);
         formData.append("totalLike", 0);
+        formData.append("tag",dataUpToServer.tag);
         images.map((item) => {
             formData.append("images", item);
         })
@@ -78,7 +82,7 @@ function Home() {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    console.log(data.newPost);
+                    console.log(data);
                     setListPost([data.newPost,...listPost]);
                     Swal.fire({
                         title: "Good job!",
@@ -86,6 +90,7 @@ function Home() {
                         icon: "success"
                     });
                     e.target.reset();
+                    setDataUpToServer({});
                     setImages([]);
                 }
             })
@@ -104,6 +109,7 @@ function Home() {
         items.push(pageInfo.pageCurrent == pageInfo.numberPages ? <></> : <button pag = {pageInfo.pageCurrent + 1} onClick={handleChangePage}>Next</button>)
         return items;
     }
+    //  End Phân Trang
 
     useEffect((item) => {
         fetch(`http://localhost:5000/post?page=${currentPage}`)
@@ -117,19 +123,15 @@ function Home() {
     }, [currentPage]);
 
     function handleRemoveImage(id){
-       const newList = [];
+        const newList = [];
         images.map((item,index) => {
-            if(index != id) newList.append(item);
+            if(index != id) newList.push(item);
         })
         setImages(newList);
     }
 
     return (
         <>
-            <div className="d-flex items-center">
-                <button onClick={openModalSignIn}>Sign In</button>
-                <button onClick={openModalSignUp}>Sign Up</button>
-            </div>
             <div className="layout">
                 <div className="main-content">
                     <div className="content-wrap">
@@ -191,8 +193,6 @@ function Home() {
                                         <div className="lp-item">
                                             <span className="lp-lang">Tests Taken</span>
 
-
-
                                             <span className="lp-score">24</span>
                                         </div>
 
@@ -246,10 +246,23 @@ function Home() {
 
                             <div className="community-wrap">
                                 <div>
-                                    <DangTai acc = {acc} handlePostBaiDang = {handlePostBaiDang} handleChange = {handleChange} images = {images} showImage = {showImage} handleRemoveImage = {handleRemoveImage} dataUpToServer = {dataUpToServer} setDataUpToServer = {setDataUpToServer} />
+                                    {document.cookie ? <DangTai 
+                                        acc = {acc} 
+                                        handlePostBaiDang = {handlePostBaiDang} 
+                                        handleChange = {handleChange} 
+                                        images = {images} 
+                                        showImage = {showImage} 
+                                        handleRemoveImage = {handleRemoveImage} 
+                                        dataUpToServer = {dataUpToServer} 
+                                        setDataUpToServer = {setDataUpToServer}
+                                     /> : <></>}
                                     
                                     {/* Hiển thị các bài đăng */}
                                     <Feed listPost={listPost} loadPagination = {loadPagination} pageInfo = {pageInfo}/>
+                                </div>
+                                <div className="d-flex flex-column px-2">
+                                    <img src = {banner}></img>
+                                    <img src="https://photo.znews.vn/w660/Uploaded/ngogtn/2021_07_19/elsa_dress.jpeg"></img>
                                 </div>
                             </div>
                         </section>

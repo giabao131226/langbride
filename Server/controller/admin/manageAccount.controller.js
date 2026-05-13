@@ -74,3 +74,19 @@ module.exports.changeStatus = async (req, res) => {
     }
     return res.json({ "success": false, "message": "Không thể tìm thấy id" });
 }
+
+// [GET] /admin1/quan-ly-tai-khoan/account/:id
+module.exports.getAccount = async (req,res) => {
+    const id = req.params.id;
+    if(id){
+        try{
+            const accDetail = await User.findOne({"_id":id});
+
+            return res.json({"success": true,"accDetail": accDetail});
+
+        }catch(error){
+            console.log("Lỗi kết nối cơ sở dữ liệu khi lấy dữ liệu tài khoản: "+error);
+            return res.json({"success": false,"message": error});
+        }
+    }
+}

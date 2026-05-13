@@ -143,7 +143,7 @@ export default function QuanLyTaiKhoan() {
                                     <td><button className={"border-none px-2 py-2 rounded text-white font-bold " + getBackGround(item.status)}>{item.status}</button></td>
                                     <td>
                                         <div className="d-flex items-center justify-center gap-x-2">
-                                            <button className="border-none cursor-pointer bg-blue text-white px-2 py-2 rounded"><IoPersonSharp /></button>
+                                            <Link to = {`account/${item._id}`}><button className="border-none cursor-pointer bg-blue text-white px-2 py-2 rounded"><IoPersonSharp /></button></Link>
                                             {item.status == "banned" ? <button className="border-none cursor-pointer bg-coral text-white px-2 py-2 rounded" onClick={() => { handleChangeStatus(item._id, "active") }}><FaUnlockAlt /></button> : <button className="border-none cursor-pointer bg-red text-white px-2 py-2 rounded" onClick={() => { handleChangeStatusMiddleware(item._id, "banned") }}><FaBan /></button>}
                                         </div>
                                     </td>

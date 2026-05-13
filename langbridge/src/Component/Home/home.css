@@ -1,11 +1,18 @@
-.homeSearch{
-    flex: 1;
+
+
+.btn-signIn{
+  background-color: rgb(80, 80, 226);
+  color: white;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 8px;
 }
-.homeSlide{
-    height: 200px;
-}
-.mainSlide{
-    width: 1280px;
+.btn-signUp{
+  background-color: transparent;
+  font-weight: bold;
+  border: 2px solid black;
+  padding: 4px 8px;
+  border-radius: 8px;
 }
 .homeTool div{
     border: 1px solid black;

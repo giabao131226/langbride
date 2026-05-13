@@ -8,20 +8,37 @@ import { FaChalkboardTeacher } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
 import './sidebar.css'
-import { useCallback } from 'react';
+import { useCallback,useState } from 'react';
+import FormSignIn from '../FormSignIn/formSignIn';
+import FormSignUp from '../FormSignUp/formSignUp';
 
-function SideBar({setStatusSignIn}) {
+function SideBar({ setStatusSignIn }) {
+
+    // Modal SignIn
+    const [statusModalSignIn, setStatusModalSignIn] = useState(false)
+
+    const openModalSignIn = useCallback(() => {
+        setStatusModalSignIn(true)
+    })
+    //End Modal SignIn
+    //Modal SignUp
+    const [statusModalSignUp, setStatusModalSignUp] = useState(false)
+
+    const openModalSignUp = useCallback(() => {
+        setStatusModalSignUp(true)
+    })
+    //End Modal SignUp
 
     const logOutAccount = useCallback(() => {
         const account = localStorage.getItem("user")
-        if(account){
+        if (account) {
             localStorage.removeItem("user")
             document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=localhost;";
             setStatusSignIn(false)
         }
     })
 
-    function handleHighLight(e){
+    function handleHighLight(e) {
         const element = document.querySelectorAll("li.nav-active");
         element.forEach((item) => item.classList.remove("nav-active"));
         e.target.classList.add("nav-active");
@@ -31,7 +48,7 @@ function SideBar({setStatusSignIn}) {
         <>
             <div className="sidebar bg-white h-screen">
                 <div className="d-flex flex-column items-center">
-                    <Link to = {"/"}><img src={logo} className="sideBar__logo"></img></Link>
+                    <Link to={"/"}><img src={logo} className="sideBar__logo"></img></Link>
                     <div className='sideBarNav d-flex flex-column justify-between'>
                         <div className='px-4'>
                             <p className='text-gray-200 font-bold m-0  py-2'>OVERVIEW</p>
@@ -44,18 +61,25 @@ function SideBar({setStatusSignIn}) {
                             </ul>
                         </div>
                         <div>
-                            
+
                         </div>
                         <div className='px-4 py-6'>
                             <p className='text-gray-200 font-bold m-0 py-2'>SETTINGS</p>
                             <ul className='sideBarTool list-style-type-none m-0 px-3 d-flex flex-column gap-y-2'>
                                 <Link to={"/"} className='text-decoration-none '><li className='text-black font-bold'><IoMdSettings /> Settings</li></Link>
-                                <li className='text-red font-bold cursor-pointer' onClick={logOutAccount}><CiLogout /> Logout</li>
+                                {document.cookie ? <li className='text-red font-bold cursor-pointer' onClick={logOutAccount}><CiLogout /> Logout</li> : <div className={"d-flex flex-column gap-y-2"}>
+                                    <button onClick={openModalSignIn} className="btn-signIn">Sign In</button>
+                                    <button onClick={openModalSignUp} className="btn-signUp">Sign Up</button>
+                                </div>}
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <FormSignIn statusModalSignIn={statusModalSignIn} setStatusModalSignIn={setStatusModalSignIn} setStatusSignIn={setStatusSignIn} />
+            
+            <FormSignUp statusModalSignUp={statusModalSignUp} setStatusModalSignUp={setStatusModalSignUp} />
         </>
     )
 }

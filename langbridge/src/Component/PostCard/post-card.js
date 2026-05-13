@@ -19,6 +19,15 @@ export default function PostCard({item}) {
         return "text-master";
     }
 
+    function getTag(tag){
+        if(tag == "question") return "❓ Question";
+        else if(tag == "tip") return "💡 Tip";
+        else if(tag == "milestone") return "🎉 Milestone";
+        else if(tag == "vocabulary") return "📝 Vocabulary";
+        else if(tag == "speaking") return "🎙️ Speaking";
+        return "📖 Resource";
+    }
+
     function handleLike(e,id){
         e.target.classList.toggle("liked");
 
@@ -56,7 +65,7 @@ export default function PostCard({item}) {
                 </div>
 
                 <span className="post-tag tag-milestone">
-                    🎉 Milestone
+                    {item.tag ? getTag(item.tag) : "❓ Question"}
                 </span>
 
                 <p className="post-text" dangerouslySetInnerHTML={{ __html: item.conTent }}>

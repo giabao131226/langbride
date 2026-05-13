@@ -42,7 +42,6 @@ module.exports.getPost = async (req, res) => {
                     "avatar": user[0].avatar,
                     "status": user[0].status,
                     "nation": user[0].nation
-
                 }
             };
         }))
@@ -70,9 +69,6 @@ module.exports.create = async (req, res) => {
         files = [...req.files];
     }
     if (data) {
-        if (data.conTent.trim().length == 0) {
-            return res.json({ "success": false, "message": "You must enter content for the post." });
-        }
         try {
             const resultPost = await Post.create(data);
             if (resultPost) {
