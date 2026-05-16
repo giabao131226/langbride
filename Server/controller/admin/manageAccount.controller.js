@@ -1,12 +1,15 @@
 
 const User = require("../../models/user.model");
 const mongoose = require("mongoose");
+
 // [GET] "/admin1/quan-ly-tai-khoan"
 module.exports.getAccounts = async (req, res) => {
     const find = {};
     const page = parseInt(req.query.page) || 1;
     const status = req.query.status;
-    const textSearch = req.query.textSearch;
+    const level = req.query.level;
+
+    if(level!="all") find.level = level
 
     if (status != undefined && status != "") find.status = status;
     if (textSearch && textSearch !== "") {
@@ -23,6 +26,9 @@ module.exports.getAccounts = async (req, res) => {
     }
     try {
         const count = await User.countDocuments(find);
+        const countToTal = await User.countDocuments();
+        const countActive = await User.countDocuments({"status": "active"});
+        const countBanned = await User.countDocuments({"status": "banned"});
         const numberPages = Math.ceil(count / 10);
         let firstPage;
         let lastPage;
@@ -45,12 +51,19 @@ module.exports.getAccounts = async (req, res) => {
         console.log(`First Page là ${firstPage} và Last Page là ${lastPage}`);
         const listAccount = await User.find(find).skip((page - 1) * 10).limit(10);
 
-        return res.json({ "success": true, listAccount: listAccount, pageInfo: {
+        return res.json({ "success": true, listAccount: listAccount, 
+            pageInfo: {
             pageCurrent: page,
             firstPage: firstPage,
             lastPage: lastPage,
             numberPages: numberPages
-        } });
+            },
+            tongQuanTaiKhoan: {
+                countActiveAccount: countActive,
+                countBannedAccount: countBanned,
+                countToTalAccount: countToTal
+            }
+        });
 
     } catch (error) {
         console.log(error)

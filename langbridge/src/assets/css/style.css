@@ -17,6 +17,9 @@ body{
 .d-none{
     display: none;
 }
+.d-block{
+    display: block!important;
+}
 table,thead,tbody,th,td{
     border: 1px solid #ddd;
 }

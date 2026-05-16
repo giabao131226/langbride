@@ -1,13 +1,16 @@
+const mongoose = require('mongoose');
 
-const mongoose = require('mongoose')
-const testSchema = mongoose.Schema({
-    id: String,
-    deBai: String,
-    DoKho: String,
+const questionSchema = mongoose.Schema({
+    title: String,
+    level: String,
+    language: String,
     LoaiCauHoi: String,
-    IDBKT: String
+    IDTest: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Test2"
+    }
 })
 
-const Test = mongoose.model("Test",testSchema,"CauHoi")
+const Question = mongoose.model("Question", questionSchema, "Question");
 
-module.exports = Test;
+module.exports = Question;

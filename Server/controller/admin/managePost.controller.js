@@ -1,6 +1,9 @@
 const Post = require("../../models/post.model");
 const Users = require("../../models/user.model");
 const Images = require("../../models/images.model");
+const Test = require("../../models/test2.model");
+const Question = require("../../models/test.model");
+const Answer = require("../../models/answer.model");
 const mongoose = require("mongoose");
 
 module.exports.getPost = async (req, res) => {
@@ -60,4 +63,49 @@ module.exports.RemovePost = async (req, res) => {
         }
     }
     return res.json({ "success": false, "message": "Xoá bài đăng không thành công vì không tìm thấy id nào là " + id })
+}
+
+
+// [POST] /quan-ly-bai-test/create
+module.exports.CreatePost = async (req,res) => {
+    const data = req.body;
+    const testDetail = {
+        "testName": data.testName,
+        "level": data.level,
+        "timeLimit": data.timeLimit,
+        "totalQuestion": data.totalQuestion,
+        "language": data.language
+    }
+    try{
+        const testResult = await Test.create(testDetail);
+        if(testResult){
+            const question = data.question;
+            console.log(question);
+            for(const item of question){
+                const dataQuestion = {
+                    "IDTest": testResult._id,
+                    "title": item.title,
+                    "level": data.level,
+                    "language": item.language
+                }
+                const newQuestion = await Question.create(dataQuestion);
+
+                for(const answer of item.answer){
+                    const dataAnswer = {
+                        "tieuDe": answer.title,
+                        "isCorrect": answer.isCorrect,
+                        "IDCauHoi": new mongoose.Types.ObjectId(newQuestion._id)
+                    }
+                    const newAnswer = await Answer.create(dataAnswer);
+                }
+            }
+
+            return res.json({"success": true});
+        }
+
+    }catch(error){
+        console.log("Lỗi khi thêm bài test: ",error);
+        return res.json({"success": false,"message": error});
+    }
+    
 }

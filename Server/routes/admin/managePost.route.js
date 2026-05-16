@@ -4,5 +4,5 @@ const controller = require("../../controller/admin/managePost.controller");
 
 router.get("/",controller.getPost);
 router.get("/remove/:id",controller.RemovePost);
-
+router.post("/create",controller.CreatePost);
 module.exports = router;

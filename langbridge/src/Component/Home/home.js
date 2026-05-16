@@ -17,7 +17,7 @@ import PostCard from "../PostCard/post-card";
 import Feed from "../Feed/feed";
 import DangTai from "../DangTai/dang-tai";
 import banner from "../../assets/img/Gemini_Generated_Image_w2ykbgw2ykbgw2yk.png";
-
+import { Link } from "react-router-dom";
 
 
 
@@ -27,8 +27,8 @@ function Home() {
     const [dataUpToServer, setDataUpToServer] = useState({});
     const [images, setImages] = useState([]);
     const [listPost, setListPost] = useState([]);
-    const [pageInfo,setPageInfo] = useState({});
-    const [currentPage,setCurrentPage] = useState(1);
+    const [pageInfo, setPageInfo] = useState({});
+    const [currentPage, setCurrentPage] = useState(1);
     // Modal SignIn
     const [statusModalSignIn, setStatusModalSignIn] = useState(false)
 
@@ -65,13 +65,13 @@ function Home() {
             `${today.getFullYear()}/${String(today.getMonth() + 1).padStart(2, "0")
             }/${String(today.getDate()).padStart(2, "0")
             }`;
-        
+
         const formData = new FormData();
         formData.append("conTent", (dataUpToServer.conTent != undefined ? dataUpToServer.conTent : ""));
         formData.append("IDAccount", acc.id);
         formData.append("createAt", date);
         formData.append("totalLike", 0);
-        formData.append("tag",dataUpToServer.tag);
+        formData.append("tag", dataUpToServer.tag);
         images.map((item) => {
             formData.append("images", item);
         })
@@ -83,7 +83,7 @@ function Home() {
             .then(data => {
                 if (data.success) {
                     console.log(data);
-                    setListPost([data.newPost,...listPost]);
+                    setListPost([data.newPost, ...listPost]);
                     Swal.fire({
                         title: "Good job!",
                         text: data.message,
@@ -97,16 +97,16 @@ function Home() {
     }
 
     // Phân trang
-    function handleChangePage(e){
+    function handleChangePage(e) {
         setCurrentPage(parseInt(e.target.getAttribute("pag")));
     }
 
-    function loadPagination(first,last){
-        const items = [pageInfo.pageCurrent == 1 ? <></> : <button pag = {pageInfo.pageCurrent - 1} onClick={handleChangePage}>Previous</button>];
-        for(var i = first;i<=last;i++){
-            items.push(<button pag = {i} key = {i} className={pageInfo.pageCurrent == i ? "active" : ""} onClick={handleChangePage}>{i}</button>)
+    function loadPagination(first, last) {
+        const items = [pageInfo.pageCurrent == 1 ? <></> : <button pag={pageInfo.pageCurrent - 1} onClick={handleChangePage}>Previous</button>];
+        for (var i = first; i <= last; i++) {
+            items.push(<button pag={i} key={i} className={pageInfo.pageCurrent == i ? "active" : ""} onClick={handleChangePage}>{i}</button>)
         }
-        items.push(pageInfo.pageCurrent == pageInfo.numberPages ? <></> : <button pag = {pageInfo.pageCurrent + 1} onClick={handleChangePage}>Next</button>)
+        items.push(pageInfo.pageCurrent == pageInfo.numberPages ? <></> : <button pag={pageInfo.pageCurrent + 1} onClick={handleChangePage}>Next</button>)
         return items;
     }
     //  End Phân Trang
@@ -122,17 +122,17 @@ function Home() {
             })
     }, [currentPage]);
 
-    function handleRemoveImage(id){
+    function handleRemoveImage(id) {
         const newList = [];
-        images.map((item,index) => {
-            if(index != id) newList.push(item);
+        images.map((item, index) => {
+            if (index != id) newList.push(item);
         })
         setImages(newList);
     }
 
     return (
         <>
-            <div className="layout">
+            <div className="layout d-block">
                 <div className="main-content">
                     <div className="content-wrap">
                         <section className="hero">
@@ -147,11 +147,13 @@ function Home() {
                                 </p>
 
                                 <div className="hero-actions">
-                                    <button className="btn-hero-primary">
+                                    <Link to={"/quiz"}><button className="btn-hero-primary">
                                         <i className="fa fa-play"></i> Continue A Test
-                                    </button>
+                                    </button></Link>
 
-                                    <button className="btn-hero-outline">
+                                    <button className="btn-hero-outline" onClick={() => {
+                                        document.querySelector(".section-header").scrollIntoView({behavior: "smooth"});
+                                    }}>
                                         <i className="fa fa-compass"></i> View Comunity
                                     </button>
                                 </div>
@@ -242,26 +244,28 @@ function Home() {
                                     </div>
                                 </div>
 
+                                <a href="my-posts" className="view-link"><span>My Posts</span> <i class="fa-solid fa-chevron-right"></i></a>
+
                             </div>
 
                             <div className="community-wrap">
                                 <div>
-                                    {document.cookie ? <DangTai 
-                                        acc = {acc} 
-                                        handlePostBaiDang = {handlePostBaiDang} 
-                                        handleChange = {handleChange} 
-                                        images = {images} 
-                                        showImage = {showImage} 
-                                        handleRemoveImage = {handleRemoveImage} 
-                                        dataUpToServer = {dataUpToServer} 
-                                        setDataUpToServer = {setDataUpToServer}
-                                     /> : <></>}
-                                    
+                                    {document.cookie ? <DangTai
+                                        acc={acc}
+                                        handlePostBaiDang={handlePostBaiDang}
+                                        handleChange={handleChange}
+                                        images={images}
+                                        showImage={showImage}
+                                        handleRemoveImage={handleRemoveImage}
+                                        dataUpToServer={dataUpToServer}
+                                        setDataUpToServer={setDataUpToServer}
+                                    /> : <></>}
+
                                     {/* Hiển thị các bài đăng */}
-                                    <Feed listPost={listPost} loadPagination = {loadPagination} pageInfo = {pageInfo}/>
+                                    <Feed listPost={listPost} loadPagination={loadPagination} pageInfo={pageInfo} />
                                 </div>
                                 <div className="d-flex flex-column px-2">
-                                    <img src = {banner}></img>
+                                    <img src={banner}></img>
                                     <img src="https://photo.znews.vn/w660/Uploaded/ngogtn/2021_07_19/elsa_dress.jpeg"></img>
                                 </div>
                             </div>

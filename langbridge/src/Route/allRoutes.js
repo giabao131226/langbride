@@ -19,6 +19,7 @@ import CreateBaiTest from "../Component/admin/BaiKiemTra/create/create-bai-test"
 import QuanLyBaiKiemTr from "../Component/admin/BaiKiemTra/QuanTri/quan-ly-bai-kiem-tra";
 import QuanLyBaiKiemTra from "../Component/admin/BaiKiemTra/QuanTri/quan-ly-bai-kiem-tra";
 import XemChiTiet from "../Component/admin/QuanLyTaiKhoan/XemChiTiet/xem-chi-tiet";
+import MyPost from "../Component/Home/MyPost/myPost";
 
 const routes = [
     {
@@ -27,7 +28,7 @@ const routes = [
         children: [
             {
                 path: "/",
-                element: <Home />,
+                element: <Home />
             },
             {
                 path: "/course",
@@ -44,6 +45,14 @@ const routes = [
             {
                 path: "/to-do-list",
                 element: <ViewToDoList />
+            },
+            {
+                path: "/my-posts",
+                element: <MyPost />
+            },
+            {
+                path: "/lam-bai-thi",
+                element: <Test />
             },
             {
                 path: "/quiz",
